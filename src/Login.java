@@ -2,12 +2,14 @@ import java.util.Scanner;
 
 public class Login 
 {
-        Scanner input = new Scanner(System.in);
-        String username;
-        String password;
+        static Scanner input = new Scanner(System.in);
+        
 
-        public void menu()
+        public static void logInMenu()
         {
+		    String username;
+		    String password;
+		    
 		    System.out.println("Welcome to the Online Booking System");
 		    System.out.println("------------------------------------");
 		    System.out.println("Please Enter your Username");
