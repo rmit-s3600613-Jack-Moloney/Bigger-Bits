@@ -6,12 +6,13 @@ import java.io.FileNotFoundException;
 
 
 public class Login {
-	public static void logInMenu(){
+	String username;
+    String password;
+	public void logInMenu(){
         User[] users;
         UserIO user = new UserIO();
         Scanner input = new Scanner(System.in);
-        String username;
-        String password;
+        
         try
         {
             users = user.initializeUsers();
@@ -31,20 +32,33 @@ public class Login {
         System.out.println("------------------------------------");
         System.out.println("Please Enter your Username");
         username = input.nextLine();
+        if(searchUser(users, username)){
+        	
+        }
+        else{
+        	
+        }
 
         System.out.println("Please enter your Password");
         password = input.nextLine();
 
-        //users check = new users(username, password);
-
-        /*if(check.user.auth()){
-            System.out.println("You are logged in");
-        }
-        else
-            System.out.println("Invalid Input");
-    */
-
-
-
+    
     }
+	public boolean searchUser(User[] users, String search)
+	{
+		//Search array for matching id.
+		boolean exist = false;
+
+		for (int i = 0; i < users.length; i++)
+		{
+			if ((users[i] != null) && (users[i].getUsername().equals(search)))
+			{
+				//If exists, set memberLocation to i
+				username = users[i].getUsername();
+				exist = true;
+				break;
+			}
+		}
+		return exist;
+	}
 }
