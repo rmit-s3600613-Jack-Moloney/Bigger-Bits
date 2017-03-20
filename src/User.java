@@ -1,15 +1,12 @@
 
-/**
- * Created by dominicalvaro on 14/03/2017.
- */
-public class users {
+public class User {
 
     private String username;
     private String password;
     private String[][] accounts = {{"dominic", "scrum"},{"christian", "abc123"}};
 
 
-    public users(String user, String pass){
+    public User(String user, String pass){
         username = user;
         password = pass;
     }
@@ -20,5 +17,13 @@ public class users {
         }
         else
             return false;
+    }
+    public String getUsername()
+    {
+        return username;
+    }
+
+    public String getPassword(){
+        return password;
     }
 }
