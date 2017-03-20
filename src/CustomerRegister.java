@@ -72,7 +72,7 @@ public class CustomerRegister
 			fw.write(username);
 			fw.write(",");
 			fw.write(password); 
-
+			
 			fw.write('\n');
 			fw.close();
 			System.out.println("User registered!");
