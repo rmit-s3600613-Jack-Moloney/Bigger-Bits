@@ -24,17 +24,25 @@ public class TestLogin {
 	}
 	
 	@Test
-	public void userNotInSystem() {
+	public void usernameNotInSystem() {
 		boolean testVariable;
 		testVariable = login.searchUser("abc");
 		assertFalse(testVariable);
 	}
 	
 	@Test
-	public void userFoundInSystem(){
+	public void usernameFoundInSystem(){
 		boolean testVariable;
 		testVariable = login.searchUser("Jack");
 		assertTrue(testVariable);
+		
+	}
+	
+	@Test
+	public void nullInput(){
+		boolean testVariable;
+		testVariable = login.searchUser("");
+		assertFalse(testVariable);
 		
 	}
 
