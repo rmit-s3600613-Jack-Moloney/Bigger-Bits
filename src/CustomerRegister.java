@@ -7,7 +7,7 @@ public class CustomerRegister
 {
 	public static Scanner scanner = new Scanner(System.in);
 	
-	public static void registration()
+	public boolean registration()
 	{	
 		boolean loop = true;
 		
@@ -17,7 +17,9 @@ public class CustomerRegister
 
 		System.out.println("Enter your desired username: ");
 		
+		boolean valid ; 
 		username = scanner.nextLine();
+		valid = checkUsername(username);
 		
 		try
 		{
@@ -84,7 +86,41 @@ public class CustomerRegister
 			e.printStackTrace();
 		} 
 		
-		Menu.menu();
+		return true;
+		
+		}
+	
+	public boolean checkUsername (String username){
+		try
+		{
+			File file = new File("users.txt");
+		
+			Scanner scanner = new Scanner(file);
+			while (scanner.hasNextLine()) 
+			{
+				String lineFromFile = scanner.nextLine();
+				if(lineFromFile.contains(username)) 
+				{ 
+					System.out.println("Username " +username+ " is already taken, please select another");
+					return false;
+				}
+			}
 
+		}
+		
+		catch (IOException e) 
+		{
+			e.printStackTrace();
+		}
+		return true;
+	}
+	
+	public boolean matchPassword (String password1, String password2){
+		if (password1.equals(password2)){
+			return true;
+		}
+		else{
+			return false;
+		}
 	}
 }
