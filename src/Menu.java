@@ -61,6 +61,7 @@ public class Menu {
 				CustomerRegister.registration();
 				break;
 			case 3:
+				System.out.println("Exiting!");
 				System.exit(0);
 			default:
 				System.out.println("Invalid input, please try again.");

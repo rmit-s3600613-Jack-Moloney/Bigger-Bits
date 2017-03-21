@@ -35,21 +35,20 @@ public class Login {
 		}
 
 		System.out.println("Enter Password");
-		boolean valid = false;
+		int valid = -1;
 		do
 		{
+			valid = -1;
 			password = input.nextLine();
-			if (password.equals(users[userLocation].getPassword()))
-			{
+			valid = searchPassword(username, password);
+			if (valid == 0){
 				user = new User(username, password);
-				valid = true;
-			} 
-			else if (password.toUpperCase().equals("C")){
-				valid = false;
+			}
+			else if (valid == 1){
 				user = null;
 				return null;
 			}
-			else if (password.equals("")){
+			else if (valid == 2){
 				System.out.println("No password entered, please try again.(Enter 'C' to cancel)");
 				user = null;
 			}
@@ -58,7 +57,7 @@ public class Login {
 				System.out.println("Invalid password, (Enter 'C' to cancel)");
 				user = null;
 			}
-		} while (valid == false);
+		} while (valid != 0);
 
 
 		System.out.println("User "+username+" has successfully been logged in");
@@ -81,6 +80,26 @@ public class Login {
 			}
 		}
 		return exist;
+	}
+	
+	public int searchPassword(String username, String password){
+		
+		if (password.equals(users[userLocation].getPassword()))
+		{
+			System.out.println("Match!");
+			return 0;
+		} 
+		else if (password.toUpperCase().equals("C")){
+			user = null;
+			return 1;
+		}
+		else if (password.equals("")){
+			return 2;
+		}
+		else
+		{
+			return 3;
+		}
 	}
 
 }
