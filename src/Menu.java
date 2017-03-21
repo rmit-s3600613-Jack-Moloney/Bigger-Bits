@@ -15,33 +15,29 @@ public class Menu {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
-		
+
+
 		Scanner input = new Scanner(System.in);
-		
-		System.out.println("Welcome to Jack's Booking System");
-		System.out.println("--------------------------------");
-		System.out.println("Please select one of the following options:");
-		System.out.println("1.Login");
-		System.out.println("2.Customer Registration");
-		System.out.println("3.Quit");
-		System.out.println("--------------------------------");
-		System.out.println("Enter an option: ");
-		
-		
-		
 		boolean loop = true;
-		
+
 		//Loop for if the input is invalid or user wants to do another action
 		while(loop)
 		{
+			System.out.println("Welcome to Jack's Booking System");
+			System.out.println("--------------------------------");
+			System.out.println("Please select one of the following options:");
+			System.out.println("1.Login");
+			System.out.println("2.Customer Registration");
+			System.out.println("3.Quit");
+			System.out.println("--------------------------------");
+			System.out.println("Enter an option: ");
 			String option = input.nextLine();
-			
+
 			int optionNumber;
-			
+
 			try
 			{
-			optionNumber = Integer.parseInt(option);
+				optionNumber = Integer.parseInt(option);
 			}
 			catch(NumberFormatException e)
 			{
@@ -50,21 +46,27 @@ public class Menu {
 
 			switch(optionNumber)
 			{
-				case 1:
+			case 1:
 
-					user = login.logInMenu(users);
+				user = login.logInMenu(users);
 
-					break;
-				case 2:
-					CustomerRegister.registration();
-					break;
-				case 3:
-					System.exit(0);
-				default:
-					System.out.println("Invalid input, please try again.");
-					continue;
+				if(user == null){
+					System.out.println("Log-in failed");
+				}
+				else{
+					System.out.println("THIS IS WHERE WE RUN THE BOOKING STUFF");
+				}
+				break;
+			case 2:
+				CustomerRegister.registration();
+				break;
+			case 3:
+				System.exit(0);
+			default:
+				System.out.println("Invalid input, please try again.");
+				continue;
 			}
 		}
-
 	}
+
 }
