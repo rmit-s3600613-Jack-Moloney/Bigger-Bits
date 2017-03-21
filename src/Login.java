@@ -47,10 +47,15 @@ public class Login {
 			else if (password.toUpperCase().equals("C")){
 				valid = false;
 				user = null;
+				return null;
+			}
+			else if (password.equals("")){
+				System.out.println("No password entered, please try again.(Enter 'C' to cancel)");
+				user = null;
 			}
 			else
 			{
-				System.out.println("Invalid username, (Enter 'C' to cancel)");
+				System.out.println("Invalid password, (Enter 'C' to cancel)");
 				user = null;
 			}
 		} while (valid == false);

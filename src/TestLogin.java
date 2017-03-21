@@ -18,8 +18,15 @@ public class TestLogin {
 	}
 	
 	@Test
-	public void test() {
-		fail("Not yet implemented");
+	public void userNotInSystem() {
+		
+		searchUser("abc");
+		assertFalse();
+	}
+	
+	@Test
+	public void incorrectPassword(){
+		
 	}
 
 }
