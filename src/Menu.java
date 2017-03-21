@@ -1,8 +1,11 @@
 import java.util.Scanner;
 
-public class Menu 
-{
-	public static void menu()
+
+public class Menu {
+	Login login = new Login();
+	User user;
+	
+	public void menu()
 	{
 		Scanner input = new Scanner(System.in);
 		
@@ -36,7 +39,9 @@ public class Menu
 			switch(optionNumber)
 			{
 				case 1:
-					Login.logInMenu();
+
+					user = login.logInMenu();
+
 					break;
 				case 2:
 					CustomerRegister.registration();
@@ -48,5 +53,6 @@ public class Menu
 					continue;
 			}
 		}
+
 	}
 }
