@@ -1,5 +1,6 @@
 import java.util.Scanner;
 
+
 public class Menu {
 	Login login = new Login();
 	User user;
@@ -38,7 +39,9 @@ public class Menu {
 			switch(optionNumber)
 			{
 				case 1:
+
 					user = login.logInMenu();
+
 					break;
 				case 2:
 					CustomerRegister.registration();
@@ -50,6 +53,6 @@ public class Menu {
 					continue;
 			}
 		}
-		
+
 	}
 }
