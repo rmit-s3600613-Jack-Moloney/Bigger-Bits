@@ -7,7 +7,7 @@ public class CustomerRegister
 {
 	public static Scanner scanner = new Scanner(System.in);
 	
-	public static void registration()
+	public static boolean registration()
 	{	
 		boolean loop = true;
 		
@@ -84,7 +84,16 @@ public class CustomerRegister
 			e.printStackTrace();
 		} 
 		
-		Menu.menu();
-
+		return true;
+		
+		}
+	
+	public boolean matchPassword (String password1, String password2){
+		if (password1.equals(password2)){
+			return true;
+		}
+		else{
+			return false;
+		}
 	}
 }

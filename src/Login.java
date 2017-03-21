@@ -86,7 +86,6 @@ public class Login {
 		
 		if (password.equals(users[userLocation].getPassword()))
 		{
-			System.out.println("Match!");
 			return 0;
 		} 
 		else if (password.toUpperCase().equals("C")){
