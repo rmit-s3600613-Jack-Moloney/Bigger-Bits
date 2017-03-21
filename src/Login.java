@@ -11,26 +11,21 @@ public class Login {
 	User user;
 	int userLocation;
 	
-	public User logInMenu() {
+	public User logInMenu(User[] userInput) {
+		users = userInput;
         Scanner input = new Scanner(System.in);
         String username = null;
         String password = null;
-        try {
-			users = IO.initializeUsers();
-		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
         
-        
-        for (int i = 0; i<users.length; i++){
+        /*for (int i = 0; i<users.length; i++){
             System.out.println(users[i].getUsername());
             System.out.println(users[i].getPassword());
-        }
+        }*/
 
-        System.out.println("Welcome to the Online Booking System");
+        System.out.println("User Login");
         System.out.println("------------------------------------");
         System.out.println("Please Enter your Username");
+        System.out.println();
         username = input.nextLine();
 
 		if (searchUser(username) == false)
@@ -44,7 +39,9 @@ public class Login {
 			{
 				password = input.nextLine();
 
-				if (password.equals(users[userLocation]))
+				
+				System.out.println(password);
+				if (password.equals(users[userLocation].getPassword()))
 				{
 					System.out.println("User successfully logged in");
 					user = new User(username, password);

@@ -1,12 +1,22 @@
+import java.io.FileNotFoundException;
 import java.util.Scanner;
 
 
 public class Menu {
 	Login login = new Login();
 	User user;
-	
+	User[] users;
+	UserIO IO = new UserIO();
 	public void menu()
 	{
+		try {
+			users = IO.initializeUsers();
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
 		Scanner input = new Scanner(System.in);
 		
 		System.out.println("Welcome to Jack's Booking System");
@@ -17,6 +27,8 @@ public class Menu {
 		System.out.println("3.Quit");
 		System.out.println("--------------------------------");
 		System.out.println("Enter an option: ");
+		
+		
 		
 		boolean loop = true;
 		
@@ -40,7 +52,7 @@ public class Menu {
 			{
 				case 1:
 
-					user = login.logInMenu();
+					user = login.logInMenu(users);
 
 					break;
 				case 2:

@@ -31,7 +31,6 @@ public class UserIO {
             username = tokens[0];
             password = tokens[1];
             user[i] = new User(username, password);
-            System.out.println(username + " + " + password);
         }
         scanner.close();
 
