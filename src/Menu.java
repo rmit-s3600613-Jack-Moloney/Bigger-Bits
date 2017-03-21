@@ -1,6 +1,7 @@
 import java.io.FileNotFoundException;
 import java.util.Scanner;
 
+
 public class Menu {
 	Login login = new Login();
 	User user;
@@ -14,11 +15,11 @@ public class Menu {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
-		
+
+
 		Scanner input = new Scanner(System.in);
 		boolean loop = true;
-		
+
 		//Loop for if the input is invalid or user wants to do another action
 		while(loop)
 		{
@@ -31,12 +32,12 @@ public class Menu {
 			System.out.println("--------------------------------");
 			System.out.println("Enter an option: ");
 			String option = input.nextLine();
-			
+
 			int optionNumber;
-			
+
 			try
 			{
-			optionNumber = Integer.parseInt(option);
+				optionNumber = Integer.parseInt(option);
 			}
 			catch(NumberFormatException e)
 			{
@@ -45,25 +46,27 @@ public class Menu {
 
 			switch(optionNumber)
 			{
-				case 1:
-					user = login.logInMenu(users);
-					if(user == null){
-						System.out.println("Log-in failed");
-					}
-					else{
-						System.out.println("THIS IS WHERE WE RUN THE BOOKING STUFF");
-					}
-					break;
-				case 2:
-					CustomerRegister.registration();
-					break;
-				case 3:
-					System.exit(0);
-				default:
-					System.out.println("Invalid input, please try again.");
-					continue;
+			case 1:
+
+				user = login.logInMenu(users);
+
+				if(user == null){
+					System.out.println("Log-in failed");
+				}
+				else{
+					System.out.println("THIS IS WHERE WE RUN THE BOOKING STUFF");
+				}
+				break;
+			case 2:
+				CustomerRegister.registration();
+				break;
+			case 3:
+				System.exit(0);
+			default:
+				System.out.println("Invalid input, please try again.");
+				continue;
 			}
 		}
-		
 	}
+
 }
