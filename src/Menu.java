@@ -7,6 +7,7 @@ public class Menu {
 	User user;
 	User[] users;
 	UserIO IO = new UserIO();
+	CustomerRegister register = new CustomerRegister();
 	public void menu()
 	{
 		try {
@@ -58,7 +59,7 @@ public class Menu {
 				}
 				break;
 			case 2:
-				CustomerRegister.registration();
+				register.registration();
 				break;
 			case 3:
 				System.out.println("Exiting!");
