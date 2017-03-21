@@ -20,12 +20,16 @@ public class TestRegistration {
 	
 	@Test
 	public void usernameAlreadyTaken() {
-		
+		boolean testVariable;
+		testVariable = register.checkUsername("Jack");
+		assertFalse(testVariable);
 	}
 	
 	@Test
 	public void usernameNotTaken(){
-		
+		boolean testVariable;
+		testVariable = register.checkUsername("Test Username");
+		assertTrue(testVariable);
 	}
 	
 	@Test
