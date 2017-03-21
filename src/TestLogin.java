@@ -45,5 +45,29 @@ public class TestLogin {
 		assertFalse(testVariable);
 		
 	}
+	
+	@Test
+	public void correctPassword(){
+		int testVariable;
+		testVariable = login.searchPassword("Jack","Moloney");
+		assertEquals(testVariable, 0);
+		
+	}
+	
+	@Test
+	public void incorrectPassword(){
+		int testVariable;
+		testVariable = login.searchPassword("Jack","1234");
+		assertNotSame(testVariable, 0);
+		
+	}
+	
+	@Test
+	public void nullPassword(){
+		int testVariable;
+		testVariable = login.searchPassword("Jack","");
+		assertEquals(testVariable, 2);
+		
+	}
 
 }
