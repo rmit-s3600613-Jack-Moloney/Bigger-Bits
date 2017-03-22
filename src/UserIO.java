@@ -36,20 +36,28 @@ public class UserIO {
 
 		return user;
 	}
-	public User intializeOwners() throws FileNotFoundException
+	public Owner intializeOwners() throws FileNotFoundException
 	{
-		String[] tokens = new String[2];
+		String[] tokens = new String[6];
 		String username;
-		String password;
-
-		Scanner scanner = new Scanner(file);
-		User owner;
+	    String password;
+	    String business;
+	    String name;
+	    String address;
+	    int phone;
+		Scanner scanner = new Scanner("business.txt");
+		Owner owner;
 
 
 		tokens = scanner.nextLine().split(",");
 		username = tokens[0];
 		password = tokens[1];
-		owner = new User(username, password);
+		business = tokens[2];
+		name = tokens[3];
+		address = tokens[4];
+		phone = Integer.parseInt(tokens[5]);
+		
+		owner = new Owner(username, password, business, name, address, phone);
 
 		scanner.close();
 		return owner;
