@@ -5,6 +5,7 @@ import java.util.Scanner;
 public class Menu {
 	Login login = new Login();
 	User user;
+	User owner;
 	User[] users;
 	UserIO IO = new UserIO();
 	CustomerRegister register = new CustomerRegister();

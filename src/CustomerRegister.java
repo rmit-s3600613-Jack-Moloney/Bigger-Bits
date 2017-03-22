@@ -17,29 +17,13 @@ public class CustomerRegister
 
 		System.out.println("Enter your desired username: ");
 		
-		boolean valid ; 
-		username = scanner.nextLine();
-		valid = checkUsername(username);
+		boolean valid = false; 
 		
-		try
+		
+		while(valid == false)
 		{
-			File file = new File("users.txt");
-		
-			Scanner scanner = new Scanner(file);
-			while (scanner.hasNextLine()) 
-			{
-				String lineFromFile = scanner.nextLine();
-				if(lineFromFile.contains(username)) 
-				{ 
-					System.out.println("Username " +username+ " is already taken, please select another");
-					registration();
-				}
-			}
-		}
-		
-		catch (IOException e) 
-		{
-			e.printStackTrace();
+			username = scanner.nextLine();
+			valid = checkUsername(username);
 		}
 		
 		while(loop)
@@ -85,7 +69,6 @@ public class CustomerRegister
 		{
 			e.printStackTrace();
 		} 
-		
 		return true;
 		
 		}
