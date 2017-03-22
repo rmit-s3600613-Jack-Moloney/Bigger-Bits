@@ -9,13 +9,13 @@ public class Menu {
 	User[] users;
 	UserIO IO = new UserIO();
 	CustomerRegister register = new CustomerRegister();
+	CustomerMenu menu = new CustomerMenu();
 	public void menu()
 	{
 		try {
 			users = IO.initializeUsers();
 			owner = IO.intializeOwners();
 		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
@@ -57,7 +57,7 @@ public class Menu {
 					System.out.println("Log-in failed");
 				}
 				else{
-					System.out.println("THIS IS WHERE WE RUN THE BOOKING STUFF");
+					menu.customerMenu();
 				}
 				break;
 			case 2:
