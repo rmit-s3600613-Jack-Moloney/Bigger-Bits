@@ -5,7 +5,7 @@ import java.util.Scanner;
 public class Menu {
 	Login login = new Login();
 	User user;
-	User owner;
+	Owner owner;
 	User[] users;
 	UserIO IO = new UserIO();
 	CustomerRegister register = new CustomerRegister();
@@ -13,6 +13,7 @@ public class Menu {
 	{
 		try {
 			users = IO.initializeUsers();
+			owner = IO.intializeOwners();
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -61,6 +62,12 @@ public class Menu {
 				break;
 			case 2:
 				register.registration();
+				try {
+					users = IO.initializeUsers();
+				} catch (FileNotFoundException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 				break;
 			case 3:
 				System.out.println("Exiting!");
