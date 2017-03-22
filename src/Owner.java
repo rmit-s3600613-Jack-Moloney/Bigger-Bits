@@ -22,7 +22,17 @@ public class Owner {
         return username;
     }
 
-    public String getPassword(){
-        return password;
+    public String getBusiness(){
+        return business;
     }
+    public String getName(){
+        return name;
+    }
+    public String getAddress(){
+        return address;
+    }
+    public int getNum(){
+        return phone;
+    }
+    
 }
