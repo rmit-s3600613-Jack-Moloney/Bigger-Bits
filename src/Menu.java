@@ -5,7 +5,7 @@ import java.util.Scanner;
 public class Menu {
 	Login login = new Login();
 	User user;
-	Owner owner;
+	Owner owners;
 	User[] users;
 	UserIO IO = new UserIO();
 	CustomerRegister register = new CustomerRegister();
@@ -14,7 +14,7 @@ public class Menu {
 	{
 		try {
 			users = IO.initializeUsers();
-			owner = IO.intializeOwners();
+			owners = IO.intializeOwners();
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
@@ -51,7 +51,7 @@ public class Menu {
 			{
 			case 1:
 
-				user = login.logInMenu(users);
+				user = login.logInMenu(users, owners);
 
 				if(user == null){
 					System.out.println("Log-in failed");
