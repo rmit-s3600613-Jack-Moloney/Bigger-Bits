@@ -9,7 +9,8 @@ public class Menu {
 	User[] users;
 	UserIO IO = new UserIO();
 	CustomerRegister register = new CustomerRegister();
-	CustomerMenu menu = new CustomerMenu();
+	CustomerMenu custMenu = new CustomerMenu();
+	BusinessOwnerMenu ownerMenu = new BusinessOwnerMenu();
 	public void menu()
 	{
 		try {
@@ -56,8 +57,11 @@ public class Menu {
 				if(user == null){
 					System.out.println("Log-in failed");
 				}
-				else {
-					menu.customerMenu();
+				else if (user instanceof Owner){
+					ownerMenu.businessOwnerMenu();
+				}
+				else{
+					custMenu.customerMenu();
 				}
 				break;
 			case 2:

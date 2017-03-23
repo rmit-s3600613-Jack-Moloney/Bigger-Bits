@@ -40,7 +40,6 @@ public class Login {
 			}
 			else if(username.toUpperCase().equals("C")){
 				System.out.println("Returning to menu");
-				input.close();
 				return null;
 			}
 			else{
