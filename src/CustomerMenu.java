@@ -15,12 +15,14 @@ public class CustomerMenu
 		System.out.println("--------------------------------");
 		System.out.println("Enter an option: ");
 
+		String option = null;
 		boolean loop = true;
 
 		//Loop for if the input is invalid or user wants to do another action
 		while(loop)
 		{
-			String option = input.nextLine();
+		
+			option = input.nextLine();
 			
 			int optionNumber;
 
