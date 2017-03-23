@@ -28,6 +28,7 @@ public class CustomerRegister
 		
 		while(loop)
 		{	
+			System.out.println("Passwords must be 4-20 characters long and contain both Numbers and Letters");
 			System.out.println("Enter your desired password: ");
 			
 			password = scanner.nextLine();
