@@ -62,7 +62,7 @@ public class Login {
 			}
 			else if (valid == 1){
 				user = null;
-				input.close();
+				//input.close();
 				return null;
 			}
 			else if (valid == 2){
@@ -78,7 +78,7 @@ public class Login {
 
 
 		System.out.println("User "+username+" has successfully been logged in");
-		input.close();
+		//input.close();
 		return user;
 
 	}
