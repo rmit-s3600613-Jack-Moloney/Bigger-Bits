@@ -56,7 +56,7 @@ public class Menu {
 				if(user == null){
 					System.out.println("Log-in failed");
 				}
-				else{
+				else {
 					menu.customerMenu();
 				}
 				break;

@@ -1,29 +1,18 @@
 
-public class Owner {
+public class Owner extends User {
 
-    private String username;
-    private String password;
     private String business;
     private String name;
     private String address;
     private int phone;
     
-    public Owner(String user, String pass, String bus, String name, String address, int num){
-        this.username = user;
-        this.password = pass;
+    public Owner(String username, String pass, String bus, String name, String address, int num){
+    	super(username, pass);
+    	this.setUsername(username);
         this.business = bus;
         this.name = name;
         this.address = address;
         this.phone = num;
-    }
-
-    public String getUsername()
-    {
-        return username;
-    }
-    
-    public String getPassword(){
-    	return password;
     }
 
     public String getBusiness(){

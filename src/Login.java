@@ -32,12 +32,10 @@ public class Login {
 			username = input.nextLine();
 			if(searchOwner(username, owner)){
 				isOwner = true;
-				System.out.println("Owner found!");
 				loop = false;
 			}
 			else if(searchUser(username)){
 				isOwner = false;
-				System.out.println("Customer found!");
 				loop = false;
 			}
 			else if(username.toUpperCase().equals("C")){
@@ -69,12 +67,15 @@ public class Login {
 				System.out.println("No password entered, please try again.(Enter 'C' to cancel)");
 				user = null;
 			}
+			else if (valid == 4){
+				user = new Owner(username, password, owner.getName(), owner.getBusiness(), owner.getAddress(), owner.getNum());
+			}
 			else
 			{
 				System.out.println("Invalid password, (Enter 'C' to cancel)");
 				user = null;
 			}
-		} while (valid != 0);
+		} while (valid != 0 && valid != 4);
 
 
 		System.out.println("User "+username+" has successfully been logged in");
@@ -104,7 +105,6 @@ public class Login {
 	{
 		//Search array for matching id.
 		boolean exist = false;
-		System.out.println(owner.getUsername());
 		
 		if ((owner != null) && (owner.getUsername().equals(search)))
 			{
@@ -121,7 +121,7 @@ public class Login {
 			return 0;
 		} 
 		else if(password.equals(owner.getPassword())){
-			return 0;
+			return 4;
 		}
 		else if (password.toUpperCase().equals("C")){
 			user = null;
