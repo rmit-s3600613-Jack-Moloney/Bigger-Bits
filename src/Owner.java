@@ -9,17 +9,21 @@ public class Owner {
     private int phone;
     
     public Owner(String user, String pass, String bus, String name, String address, int num){
-        username = user;
-        password = pass;
-        business = bus;
+        this.username = user;
+        this.password = pass;
+        this.business = bus;
         this.name = name;
         this.address = address;
-        phone = num;
+        this.phone = num;
     }
 
     public String getUsername()
     {
         return username;
+    }
+    
+    public String getPassword(){
+    	return password;
     }
 
     public String getBusiness(){
