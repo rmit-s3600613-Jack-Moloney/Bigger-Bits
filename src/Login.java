@@ -30,7 +30,7 @@ public class Login {
 			System.out.println("Please Enter your Username");
 			
 			username = input.nextLine();
-			if(searchOwner(username)){
+			if(searchOwner(username, owner)){
 				isOwner = true;
 				System.out.println("Owner found!");
 				loop = false;
@@ -56,7 +56,7 @@ public class Login {
 		{
 			valid = -1;
 			password = input.nextLine();
-			valid = searchPassword(username, password);
+			valid = searchPassword(username, password, owner);
 			if (valid == 0){
 				user = new User(username, password);
 			}
@@ -100,7 +100,7 @@ public class Login {
 		return exist;
 	}
 	
-	public boolean searchOwner(String search)
+	public boolean searchOwner(String search, Owner owner)
 	{
 		//Search array for matching id.
 		boolean exist = false;
@@ -114,12 +114,15 @@ public class Login {
 		return exist;
 	}
 	
-	public int searchPassword(String username, String password){
+	public int searchPassword(String username, String password, Owner owner){
 		
 		if (password.equals(users[userLocation].getPassword()))
 		{
 			return 0;
 		} 
+		else if(password.equals(owner.getPassword())){
+			return 0;
+		}
 		else if (password.toUpperCase().equals("C")){
 			user = null;
 			return 1;
