@@ -32,6 +32,14 @@ public class CustomerRegister
 			
 			password = scanner.nextLine();
 			
+			if(testPassword(password)){
+				
+			}
+			else{
+				System.out.println("Password must be 4-20 characters long and contain both Numbers and Letters");
+				continue;
+			}
+			
 			System.out.println("Confirm Password: ");
 			
 			checkPassword = scanner.nextLine();
@@ -100,6 +108,30 @@ public class CustomerRegister
 	
 	public boolean matchPassword (String password1, String password2){
 		if (password1.equals(password2)){
+			return true;
+		}
+		else{
+			return false;
+		}
+	}
+	
+	public boolean testPassword(String password){
+		boolean hasNumber = false;
+		boolean hasLetter = false;
+		
+		if(password.length() < 4 || password.length() > 20){
+			return false;
+		}
+		
+		for(int i = 0; i < password.length(); i++){
+			if (Character.isDigit(password.charAt(i))){
+				hasNumber = true;
+			}
+			if (Character.isLetter(password.charAt(i))){
+				hasLetter = true;
+			}
+		}
+		if(hasLetter && hasNumber){
 			return true;
 		}
 		else{
