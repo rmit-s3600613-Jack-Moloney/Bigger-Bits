@@ -17,36 +17,31 @@ public class CustomerRegister
 
 		System.out.println("Enter your desired username: ");
 		
-		boolean valid ; 
-		username = scanner.nextLine();
-		valid = checkUsername(username);
+		boolean valid = false; 
 		
-		try
+		
+		while(valid == false)
 		{
-			File file = new File("users.txt");
-		
-			Scanner scanner = new Scanner(file);
-			while (scanner.hasNextLine()) 
-			{
-				String lineFromFile = scanner.nextLine();
-				if(lineFromFile.contains(username)) 
-				{ 
-					System.out.println("Username " +username+ " is already taken, please select another");
-					registration();
-				}
-			}
+			username = scanner.nextLine();
+			valid = checkUsername(username);
 		}
 		
-		catch (IOException e) 
-		{
-			e.printStackTrace();
-		}
+		System.out.println("Passwords must be 4-20 characters long and contain both Numbers and Letters");
 		
 		while(loop)
 		{	
+			
 			System.out.println("Enter your desired password: ");
 			
 			password = scanner.nextLine();
+			
+			if(testPassword(password)){
+				
+			}
+			else{
+				System.out.println("Password must be 4-20 characters long and contain both Numbers and Letters");
+				continue;
+			}
 			
 			System.out.println("Confirm Password: ");
 			
@@ -85,7 +80,6 @@ public class CustomerRegister
 		{
 			e.printStackTrace();
 		} 
-		
 		return true;
 		
 		}
@@ -117,6 +111,30 @@ public class CustomerRegister
 	
 	public boolean matchPassword (String password1, String password2){
 		if (password1.equals(password2)){
+			return true;
+		}
+		else{
+			return false;
+		}
+	}
+	
+	public boolean testPassword(String password){
+		boolean hasNumber = false;
+		boolean hasLetter = false;
+		
+		if(password.length() < 4 || password.length() > 20){
+			return false;
+		}
+		
+		for(int i = 0; i < password.length(); i++){
+			if (Character.isDigit(password.charAt(i))){
+				hasNumber = true;
+			}
+			if (Character.isLetter(password.charAt(i))){
+				hasLetter = true;
+			}
+		}
+		if(hasLetter && hasNumber){
 			return true;
 		}
 		else{

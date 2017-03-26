@@ -49,7 +49,8 @@ public class TestLogin {
 	@Test
 	public void correctPassword(){
 		int testVariable;
-		testVariable = login.searchPassword("Jack","Moloney");
+		Owner owner = new Owner("Test", "TestPassword", "RMIT", "Homy" ,"10 Address Street", 0123123123);
+		testVariable = login.searchPassword("Jack","Moloney", owner);
 		assertEquals(testVariable, 0);
 		
 	}
@@ -57,7 +58,8 @@ public class TestLogin {
 	@Test
 	public void incorrectPassword(){
 		int testVariable;
-		testVariable = login.searchPassword("Jack","1234");
+		Owner owner = new Owner("Test", "TestPassword", "RMIT", "Homy" ,"10 Address Street", 0123123123);
+		testVariable = login.searchPassword("Jack","1234", owner);
 		assertNotSame(testVariable, 0);
 		
 	}
@@ -65,7 +67,8 @@ public class TestLogin {
 	@Test
 	public void nullPassword(){
 		int testVariable;
-		testVariable = login.searchPassword("Jack","");
+		Owner owner = new Owner("Test", "TestPassword", "RMIT", "Homy" ,"10 Address Street", 0123123123);
+		testVariable = login.searchPassword("Jack","", owner);
 		assertEquals(testVariable, 2);
 		
 	}
