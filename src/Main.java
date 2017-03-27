@@ -1,9 +1,10 @@
+public class Main 
 
-public class Main {
+  {	
+	  public static void main(String[] args){
+		  Menu menu = new Menu();
+		  menu.menu();
 
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-
-	}
+  }
 
 }
