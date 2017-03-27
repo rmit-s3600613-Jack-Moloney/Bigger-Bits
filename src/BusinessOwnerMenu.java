@@ -3,6 +3,7 @@ import java.util.Scanner;
 
 public class BusinessOwnerMenu 
 {
+	AddEmployee addingEmployee = new AddEmployee();
 	public boolean businessOwnerMenu()
 	{
 		Scanner input = new Scanner(System.in);
@@ -43,6 +44,7 @@ public class BusinessOwnerMenu
 			{
 			case 1:
 				System.out.println("This is where you will see the add new employees.");
+				addingEmployee.addingEmployee();
 				break;
 			case 2:
 				System.out.println("This is where you will see the add roster for employees.");

@@ -11,6 +11,7 @@ public class Menu {
 	CustomerRegister register = new CustomerRegister();
 	CustomerMenu custMenu = new CustomerMenu();
 	BusinessOwnerMenu ownerMenu = new BusinessOwnerMenu();
+
 	public void menu()
 	{
 		try {
