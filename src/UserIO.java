@@ -4,8 +4,8 @@ import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 import java.util.*;
 public class UserIO {
-	File file = new File("users.txt");
-
+	File userFile = new File("users.txt");
+	File ownerFile = new File("business.txt");
 	public User[] initializeUsers() throws FileNotFoundException
 	{
 		String[] tokens = new String[2];
@@ -13,8 +13,8 @@ public class UserIO {
 		String username;
 		String password;
 
-		Scanner test = new Scanner(file);
-		Scanner scanner = new Scanner(file);
+		Scanner test = new Scanner(userFile);
+		Scanner scanner = new Scanner(userFile);
 
 		while (test.hasNextLine())
 		{
@@ -45,9 +45,8 @@ public class UserIO {
 	    String name;
 	    String address;
 	    int phone;
-		Scanner scanner = new Scanner("business.txt");
+		Scanner scanner = new Scanner(ownerFile);
 		Owner owner;
-
 
 		tokens = scanner.nextLine().split(",");
 		username = tokens[0];
@@ -65,7 +64,7 @@ public class UserIO {
 	}
 	public void saveUsers(User[] users, ArrayList<User> playerList) throws FileNotFoundException
 	{
-		PrintWriter output = new PrintWriter(file);
+		PrintWriter output = new PrintWriter(userFile);
 		for (int i = 0; i < users.length; i++)
 		{
 			if (users[i] != null)

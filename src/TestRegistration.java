@@ -45,4 +45,32 @@ public class TestRegistration {
 		testVariable = register.matchPassword("1234","1234");
 		assertTrue(testVariable);
 	}
+	
+	@Test
+	public void passwordTooShort(){
+		boolean testVariable;
+		testVariable = register.testPassword("ab1");
+		assertFalse(testVariable);
+	}
+	
+	@Test
+	public void passwordTooLong(){
+		boolean testVariable;
+		testVariable = register.testPassword("wasd1234wasd1234wasd1");
+		assertFalse(testVariable);
+	}
+	
+	@Test
+	public void passwordNoLetters(){
+		boolean testVariable;
+		testVariable = register.testPassword("12345");
+		assertFalse(testVariable);
+	}
+	
+	@Test
+	public void passwordNoNumbers(){
+		boolean testVariable;
+		testVariable = register.testPassword("abcde");
+		assertFalse(testVariable);
+	}
 }
