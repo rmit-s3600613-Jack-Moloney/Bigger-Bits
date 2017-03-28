@@ -68,7 +68,8 @@ public class BusinessOwnerMenu
 				System.out.println("This is where you will do new booking things.");
 				break;
 			case 5:
-				System.out.println("This is where you will see the workers availability.");
+				System.out.println("This is where you will see the workers shifts.");
+
 				break;
 			case 6:
 				System.out.println("Returning to main menu");
@@ -227,7 +228,7 @@ public class BusinessOwnerMenu
 	public void saveRoster() throws FileNotFoundException{
 		//read every employees hours back into the text file
 
-		File testFile = new File("text.txt");
+		File testFile = new File("hours.txt");
 
 		PrintWriter output = new PrintWriter(testFile);
 
@@ -243,9 +244,10 @@ public class BusinessOwnerMenu
 			{
 				Shift[] employeeRoster = employees[i].getRoster();
 
-				Date test = employeeRoster[j].getStart();
+				Date start = employeeRoster[j].getStart();
+				Date end = employeeRoster[j].getEnd();
 
-				output.println(test.getDate());
+				output.print(start.getDate() + "." + (start.getMonth()+1) + "." + start.getHours() + ":" + start.getMinutes() + "." + end.getHours() + ":" + end.getMinutes());
 				fw.write(",");
 			}
 
@@ -253,8 +255,7 @@ public class BusinessOwnerMenu
 		}
 
 		fw.close();
-	} 
-
+	}
 }
 
 
