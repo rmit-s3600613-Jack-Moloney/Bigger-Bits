@@ -75,7 +75,8 @@ public class Employee {
 		for (int i = 0; i < roster.length; i++){
 			newRoster[i] = roster[i];
 		}
-		newRoster[roster.length - 1] = newShift;
+		newRoster[roster.length] = newShift;
+		roster = newRoster;
 		return true;
 	}
 
