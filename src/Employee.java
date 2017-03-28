@@ -21,6 +21,11 @@ public class Employee {
 		return Email;
 	}
 	
+	public Shift[] getRoster()
+	{
+		return roster;
+	}
+	
 	public void loadHours() throws FileNotFoundException{
 		//File employeeFile = new File("employees.txt");
 		File hoursFile = new File("hours.txt");
