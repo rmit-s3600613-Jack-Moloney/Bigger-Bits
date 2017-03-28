@@ -2,6 +2,8 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.Date;
 import java.util.Scanner;
 
 public class BusinessOwnerMenu 
@@ -9,14 +11,14 @@ public class BusinessOwnerMenu
 	AddEmployee addingEmployee = new AddEmployee();
 	Employee[] employees;
 	File employeeFile = new File("employees.txt");
-	
-	
+
+
 	public boolean businessOwnerMenu() throws FileNotFoundException
 	{
 		employees = loadEmployees();
-		
+
 		Scanner input = new Scanner(System.in);
-		
+
 		System.out.println("Welcome to the Business Owner Menu");
 
 		boolean loop = true;
@@ -34,10 +36,10 @@ public class BusinessOwnerMenu
 			System.out.println("6. Logout");
 			System.out.println("--------------------------------");
 			System.out.println("Enter an option: ");
-			
-			
+
+
 			String option = input.nextLine();
-			
+
 			int optionNumber;
 
 			try
@@ -48,7 +50,7 @@ public class BusinessOwnerMenu
 			{
 				optionNumber = 0;
 			}
-			
+
 			switch(optionNumber)
 			{
 			case 1:
@@ -79,24 +81,30 @@ public class BusinessOwnerMenu
 		}
 		return true;
 	}
-	
+
 	public boolean addHours() throws FileNotFoundException{
 		Scanner input = new Scanner(System.in);
 		Employee selectedEmployee = null;
 		boolean valid = false;
-		
+
+
+
 		System.out.println("--------------------");
 		//Loads employees from Array/File and displays list
 		for (int i = 0; i < employees.length; i++){
 			System.out.print(i + 1 + ". ");
 			System.out.println(employees[i].getName());
 		}
-		
+
 		int optionNumber = -1;
 		while (!valid){
 			System.out.println("Please Select An Employee(Number Only):");
 			String option = input.nextLine();
-			
+
+			for (int i = 0; i < employees.length; i ++)
+			{
+				employees[i].loadHours();
+			}
 
 			try
 			{
@@ -106,7 +114,7 @@ public class BusinessOwnerMenu
 			{
 				optionNumber = 0;
 			}
-			
+
 			if (optionNumber == 0){
 				System.out.println("Invalid Entry");
 			}
@@ -119,11 +127,11 @@ public class BusinessOwnerMenu
 				valid = true;
 			}
 		}
-		
+
 		//Displays hour of selected employee
-		selectedEmployee.loadHours();
+		//selectedEmployee.loadHours();
 		selectedEmployee.printHours();
-		
+
 		System.out.println("Please Enter A Date To Add Roster (Format = dd.m):");
 		String selectedDate = null;
 		valid = false;
@@ -136,7 +144,7 @@ public class BusinessOwnerMenu
 				System.out.println("Incorrect Format Used. Please Try Again.");
 			}		
 		}
-		
+
 		System.out.println("Please Enter A Starting Time (Format: h:mm):");
 		valid = false;
 		String startTime = null;
@@ -165,15 +173,15 @@ public class BusinessOwnerMenu
 		shiftTime = shiftTime.concat("." + startTime + ".");
 		shiftTime = shiftTime.concat(endTime);
 		System.out.println(shiftTime);
-		
+
 		Shift newShift = new Shift(shiftTime);
 		employees[optionNumber - 1].updateRoster(newShift);
 		saveRoster();
-		
+
 		return false;
-		
+
 	}
-	
+
 	public Employee[] loadEmployees() throws FileNotFoundException{
 		String[] tokens = new String[2];
 		int count = 0;
@@ -203,53 +211,52 @@ public class BusinessOwnerMenu
 
 		return employees;
 	}
-	
+
 	public boolean checkDate(String date){
 		//Check that input is of format dd.MM or dd.M or d.M etc
-		
+
 		return true;
 	}
-	
+
 	public boolean checkTime(String time){
 		//Check that input is of format HH:mm or H:mm
-		
+
 		return true;
 	}
-	
-	public void saveRoster(){
+
+	public void saveRoster() throws FileNotFoundException{
 		//read every employees hours back into the text file
-		
-		String filename = "test.txt";
-		FileWriter fw;
-		
-		try 
+
+		File testFile = new File("text.txt");
+
+		PrintWriter output = new PrintWriter(testFile);
+
+
+		PrintWriter fw = new PrintWriter(output);			
+
+		for (int i = 0; i < employees.length; i++)
 		{
-			fw = new FileWriter(filename,false);			
-			
-			for (int i = 0; i < employees.length; i++)
+			fw.write(employees[i].getName());
+			fw.write(","); 
+
+			for (int j = 0; j < employees[i].getRoster().length; j++)
 			{
-				fw.write(employees[i].getName());
-				fw.write(","); 
-				
-				for (int j = 0; j < employees[i].getRoster().length; j++)
-				{
-					fw.write("Test");
-					fw.write(",");
-				}
-				
-				fw.write("\n");
+				Shift[] employeeRoster = employees[i].getRoster();
+
+				Date test = employeeRoster[j].getStart();
+
+				output.println(test.getDate());
+				fw.write(",");
 			}
-			
-			fw.close();
-		} 
-		
-		catch (IOException e) 
-		{
-			e.printStackTrace();
-		} 
-		
+
+			fw.write("\n");
 		}
-		
-	}
+
+		fw.close();
+	} 
+
+}
+
+
 
 
