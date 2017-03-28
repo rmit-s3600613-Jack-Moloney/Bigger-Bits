@@ -229,7 +229,7 @@ public class BusinessOwnerMenu
 			for (int i = 0; i < employees.length; i++)
 			{
 				fw.write(employees[i].getName());
-				fw.write(",");
+				fw.write(","); 
 				
 				for (int j = 0; j < employees[i].getRoster().length; j++)
 				{
