@@ -32,7 +32,7 @@ public class BusinessOwnerMenu
 			System.out.println("2. Add Rosters for Employees");
 			System.out.println("3. Summary of Bookings");
 			System.out.println("4. New Booking");
-			System.out.println("5. Workers Availabilty");
+			System.out.println("5. Workers Shifts");
 			System.out.println("6. Logout");
 			System.out.println("--------------------------------");
 			System.out.println("Enter an option: ");
@@ -58,7 +58,6 @@ public class BusinessOwnerMenu
 				addingEmployee.addingEmployee();
 				break;
 			case 2:
-				System.out.println("This is where you will see the add roster for employees.");
 				addHours();
 				break;
 			case 3:
@@ -68,8 +67,7 @@ public class BusinessOwnerMenu
 				System.out.println("This is where you will do new booking things.");
 				break;
 			case 5:
-				System.out.println("This is where you will see the workers shifts.");
-
+				displayShifts();
 				break;
 			case 6:
 				System.out.println("Returning to main menu");
@@ -133,7 +131,7 @@ public class BusinessOwnerMenu
 		//selectedEmployee.loadHours();
 		selectedEmployee.printHours();
 
-		System.out.println("Please Enter A Date To Add Roster (Format = dd.m):");
+		System.out.println("Please Enter A Date To Add Roster (Format = dd.mm):");
 		String selectedDate = null;
 		valid = false;
 		while (!valid){
@@ -146,7 +144,7 @@ public class BusinessOwnerMenu
 			}		
 		}
 
-		System.out.println("Please Enter A Starting Time (Format: h:mm):");
+		System.out.println("Please Enter A Starting Time (Format: hh:mm):");
 		valid = false;
 		String startTime = null;
 		while (!valid){
@@ -158,7 +156,7 @@ public class BusinessOwnerMenu
 				System.out.println("Incorrect Format Used. Please Try Again.");
 			}		
 		}
-		System.out.println("Please Enter A Finishing Time (Format: h:mm):");
+		System.out.println("Please Enter A Finishing Time (Format: hh:mm):");
 		String endTime = null;
 		valid = false;
 		while (!valid){
@@ -215,13 +213,31 @@ public class BusinessOwnerMenu
 
 	public boolean checkDate(String date){
 		//Check that input is of format dd.MM or dd.M or d.M etc
-
+		if (!(date.length() == 4))
+		{
+			return false;
+		}
+		
+		if (!(Character.isDigit(date.charAt(0)) && (Character.isDigit(date.charAt(1)) && (date.charAt(2) == '.') && (date.charAt(3) == '0') && (Character.isDigit(date.charAt(4))))))
+		{
+			return false;
+		}
+		
 		return true;
 	}
 
 	public boolean checkTime(String time){
 		//Check that input is of format HH:mm or H:mm
-
+		if (!(time.length() == 4))
+		{
+			return false;
+		}
+		
+		if (!(Character.isDigit(time.charAt(0)) && (Character.isDigit(time.charAt(1)) && (time.charAt(2) == ':') && (Character.isDigit(time.charAt(3)) && (Character.isDigit(time.charAt(4)))))))
+		{
+			return false;
+		}
+		
 		return true;
 	}
 
@@ -256,6 +272,21 @@ public class BusinessOwnerMenu
  
 		fw.close();
 	}
+
+	public void displayShifts()
+	{
+		for (int i = 0; i < employees.length; i++)
+		{
+			try {
+				employees[i].loadHours();
+				System.out.println(employees[i].getName());
+				employees[i].printHours();
+			} catch (FileNotFoundException e) {
+				e.printStackTrace();
+			}
+		}
+	}
+
 }
 
 
