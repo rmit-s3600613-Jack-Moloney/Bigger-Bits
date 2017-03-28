@@ -6,6 +6,7 @@ public class Owner extends User {
     private String address;
     private int phone;
     
+    /* Constructor to set up the owner */
     public Owner(String username, String pass, String bus, String name, String address, int num){
     	super(username, pass);
     	this.setUsername(username);
