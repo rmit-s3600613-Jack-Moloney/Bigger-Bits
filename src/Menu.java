@@ -5,16 +5,19 @@ import java.util.Scanner;
 public class Menu {
 	Login login = new Login();
 	User user;
-	User owner;
+	Owner owners;
 	User[] users;
 	UserIO IO = new UserIO();
 	CustomerRegister register = new CustomerRegister();
+	CustomerMenu custMenu = new CustomerMenu();
+	BusinessOwnerMenu ownerMenu = new BusinessOwnerMenu();
+
 	public void menu()
 	{
 		try {
 			users = IO.initializeUsers();
+			owners = IO.intializeOwners();
 		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
@@ -50,17 +53,26 @@ public class Menu {
 			{
 			case 1:
 
-				user = login.logInMenu(users);
+				user = login.logInMenu(users, owners);
 
 				if(user == null){
 					System.out.println("Log-in failed");
 				}
+				else if (user instanceof Owner){
+					ownerMenu.businessOwnerMenu();
+				}
 				else{
-					System.out.println("THIS IS WHERE WE RUN THE BOOKING STUFF");
+					custMenu.customerMenu();
 				}
 				break;
 			case 2:
 				register.registration();
+				try {
+					users = IO.initializeUsers();
+				} catch (FileNotFoundException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 				break;
 			case 3:
 				System.out.println("Exiting!");

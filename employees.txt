@@ -1,0 +1,3 @@
+Dominic,
+Jack,jack@rmit.edu.au
+Sam,sam@sam.com
