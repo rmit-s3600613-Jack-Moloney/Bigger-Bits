@@ -90,10 +90,11 @@ public class BusinessOwnerMenu
 			System.out.println(employees[i].getName());
 		}
 		
+		int optionNumber = -1;
 		while (!valid){
 			System.out.println("Please Select An Employee(Number Only):");
 			String option = input.nextLine();
-			int optionNumber;
+			
 
 			try
 			{
@@ -119,13 +120,54 @@ public class BusinessOwnerMenu
 		
 		//Displays hour of selected employee
 		selectedEmployee.loadHours();
+		selectedEmployee.printHours();
 		
-		System.out.println("Please Enter A Day To Add Roster:");
+		System.out.println("Please Enter A Date To Add Roster (Format = dd.m):");
+		String selectedDate = null;
+		valid = false;
+		while (!valid){
+			selectedDate = input.nextLine();
+			if(checkDate(selectedDate)){
+				valid = true;
+			}
+			else{
+				System.out.println("Incorrect Format Used. Please Try Again.");
+			}		
+		}
 		
-		System.out.println("Please Enter A Starting Time (Format: h.mm):");
+		System.out.println("Please Enter A Starting Time (Format: h:mm):");
+		valid = false;
+		String startTime = null;
+		while (!valid){
+			startTime = input.nextLine();
+			if(checkTime(startTime)){
+				valid = true;
+			}
+			else{
+				System.out.println("Incorrect Format Used. Please Try Again.");
+			}		
+		}
+		System.out.println("Please Enter A Finishing Time (Format: h:mm):");
+		String endTime = null;
+		valid = false;
+		while (!valid){
+			endTime = input.nextLine();
+			if(checkTime(endTime)){
+				valid = true;
+			}
+			else{
+				System.out.println("Incorrect Format Used. Please Try Again.");
+			}		
+		}
+		String shiftTime = selectedDate;
+		shiftTime = shiftTime.concat("." + startTime + ".");
+		shiftTime = shiftTime.concat(endTime);
+		System.out.println(shiftTime);
 		
-		System.out.println("Please Enter A Finishing Time (Format: h.mm):");
-
+		Shift newShift = new Shift(shiftTime);
+		employees[optionNumber - 1].updateRoster(newShift);
+		saveRoster();
+		
 		return false;
 		
 	}
@@ -158,6 +200,23 @@ public class BusinessOwnerMenu
 		scanner.close();
 
 		return employees;
+	}
+	
+	public boolean checkDate(String date){
+		//Check that input is of format dd.MM or dd.M or d.M etc
+		
+		return true;
+	}
+	
+	public boolean checkTime(String time){
+		//Check that input is of format HH:mm or H:mm
+		
+		return true;
+	}
+	
+	public void saveRoster(){
+		//read every employees hours back into the text file
+		
 	}
 }
 
