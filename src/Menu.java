@@ -14,6 +14,7 @@ public class Menu {
 
 	public void menu() throws FileNotFoundException
 	{
+		/* Imports the owner and users into the system */
 		try {
 			users = IO.initializeUsers();
 			owners = IO.intializeOwners();
@@ -52,9 +53,9 @@ public class Menu {
 			switch(optionNumber)
 			{
 			case 1:
-
+				/* Runs the log in function */
 				user = login.logInMenu(users, owners);
-
+				/*  */
 				if(user == null){
 					System.out.println("Log-in failed");
 				}
