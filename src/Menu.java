@@ -12,7 +12,7 @@ public class Menu {
 	CustomerMenu custMenu = new CustomerMenu();
 	BusinessOwnerMenu ownerMenu = new BusinessOwnerMenu();
 
-	public void menu() throws FileNotFoundException
+	public void menu()
 	{
 		try {
 			users = IO.initializeUsers();

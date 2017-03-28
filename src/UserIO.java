@@ -6,7 +6,6 @@ import java.util.*;
 public class UserIO {
 	File userFile = new File("users.txt");
 	File ownerFile = new File("business.txt");
-	
 	public User[] initializeUsers() throws FileNotFoundException
 	{
 		String[] tokens = new String[2];
