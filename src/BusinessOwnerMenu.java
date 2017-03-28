@@ -1,5 +1,7 @@
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.Scanner;
 
 public class BusinessOwnerMenu 
@@ -217,6 +219,37 @@ public class BusinessOwnerMenu
 	public void saveRoster(){
 		//read every employees hours back into the text file
 		
+		String filename = "test.txt";
+		FileWriter fw;
+		
+		try 
+		{
+			fw = new FileWriter(filename,false);			
+			
+			for (int i = 0; i < employees.length; i++)
+			{
+				fw.write(employees[i].getName());
+				fw.write(",");
+				
+				for (int j = 0; j < employees[i].getRoster().length; j++)
+				{
+					fw.write("Test");
+					fw.write(",");
+				}
+				
+				fw.write("\n");
+			}
+			
+			fw.close();
+		} 
+		
+		catch (IOException e) 
+		{
+			e.printStackTrace();
+		} 
+		
+		}
+		
 	}
-}
+
 
