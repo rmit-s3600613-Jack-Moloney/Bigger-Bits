@@ -1,8 +1,10 @@
 import java.io.FileNotFoundException;
 import java.util.Scanner;
+import java.util.logging.*;
 
 
 public class Menu {
+	private static final Logger logger = Logger.getLogger(Menu.class.getName());
 	Login login = new Login();
 	User user;
 	Owner owners;
@@ -14,12 +16,15 @@ public class Menu {
 
 	public void menu() throws FileNotFoundException
 	{
+		
+		
 		/* Imports the owner and users into the system */
+		logger.fine("Attempting to open the files and import data");
 		try {
 			users = IO.initializeUsers();
 			owners = IO.intializeOwners();
 		} catch (FileNotFoundException e) {
-			e.printStackTrace();
+			logger.log(Level.WARNING, "Trouble opening files", e);
 		}
 
 
@@ -40,7 +45,6 @@ public class Menu {
 			String option = input.nextLine();
 
 			int optionNumber;
-
 			try
 			{
 				optionNumber = Integer.parseInt(option);

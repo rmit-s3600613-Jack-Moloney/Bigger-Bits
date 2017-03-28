@@ -2,11 +2,13 @@ import java.io.FileWriter;
 import java.io.File;
 import java.io.IOException;
 import java.util.Scanner;
+import java.util.logging.*;
 import java.util.regex.Pattern;
 
 public class AddEmployee {
 	public static Scanner scanner = new Scanner(System.in);
-
+	private static final Logger logger = Logger.getLogger(AddEmployee.class.getName());
+	
 	public boolean addingEmployee()
 	{
 		boolean loop = true;
@@ -31,6 +33,7 @@ public class AddEmployee {
 		FileWriter fw;
 
 		/* Filewriter saves the name and email to a text file */
+		logger.fine("Attempting to write to file");
 		try
 		{
 			fw = new FileWriter(filename,true);
@@ -47,7 +50,7 @@ public class AddEmployee {
 
 		catch (IOException e) 
 		{
-			e.printStackTrace();
+			logger.log(Level.WARNING, "Unable to save to file", e);
 		} 
 
 
@@ -55,6 +58,8 @@ public class AddEmployee {
 		String filename2 = "hours.txt";
 		FileWriter fw2;
 		/* Filewriter saves the name and hours to a textfile */
+		logger.fine("Attempting to write to file");
+
 		try
 		{
 			fw2 = new FileWriter(filename2,true);
@@ -68,7 +73,7 @@ public class AddEmployee {
 
 		catch (IOException e) 
 		{
-			e.printStackTrace();
+			logger.log(Level.WARNING, "Unable to save to file", e);
 		}
 		return true;
 
@@ -76,6 +81,8 @@ public class AddEmployee {
 
 	/* Check name functions makes sure the name does not already exist within the text file */
 	public boolean checkName ( String name){
+		logger.fine("Attempting to read from file");
+
 		try{
 			File file = new File("employees.txt");
 
@@ -91,7 +98,8 @@ public class AddEmployee {
 			}
 		}
 		catch (IOException e){
-			e.printStackTrace();
+			logger.log(Level.WARNING, "Unable to read from file", e);
+
 		}
 		return true;
 	}

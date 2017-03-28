@@ -1,12 +1,10 @@
 import java.util.Scanner;
 
-//MItchell did this
 import java.util.Scanner;
 import java.io.FileNotFoundException;
 
 
 public class Login {
-
 	/* An array of users is stored, to hold all current users of the system */
 	User[] users;
 	/* The system only has one owner */
@@ -32,7 +30,6 @@ public class Login {
 		/* Asks for username until correct one is entered on user cancels */
 		while (loop == true){
 			System.out.println("Please Enter your Username");
-			
 			username = input.nextLine();
 			/* Checks if the username belongs to the owner */
 			if(searchOwner(username, owner)){
