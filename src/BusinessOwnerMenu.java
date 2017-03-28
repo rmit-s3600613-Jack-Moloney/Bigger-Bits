@@ -1,11 +1,18 @@
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
 
 public class BusinessOwnerMenu 
 {
 	AddEmployee addingEmployee = new AddEmployee();
-	public boolean businessOwnerMenu()
+	Employee[] employees;
+	File employeeFile = new File("employees.txt");
+	
+	
+	public boolean businessOwnerMenu() throws FileNotFoundException
 	{
+		employees = loadEmployees();
+		
 		Scanner input = new Scanner(System.in);
 		
 		System.out.println("Welcome to the Business Owner Menu");
@@ -48,6 +55,7 @@ public class BusinessOwnerMenu
 				break;
 			case 2:
 				System.out.println("This is where you will see the add roster for employees.");
+				addHours();
 				break;
 			case 3:
 				System.out.println("This is where you will see the summary of bookings.");
@@ -68,6 +76,88 @@ public class BusinessOwnerMenu
 			}
 		}
 		return true;
+	}
+	
+	public boolean addHours() throws FileNotFoundException{
+		Scanner input = new Scanner(System.in);
+		Employee selectedEmployee = null;
+		boolean valid = false;
+		
+		System.out.println("--------------------");
+		//Loads employees from Array/File and displays list
+		for (int i = 0; i < employees.length; i++){
+			System.out.print(i + 1 + ". ");
+			System.out.println(employees[i].getName());
+		}
+		
+		while (!valid){
+			System.out.println("Please Select An Employee(Number Only):");
+			String option = input.nextLine();
+			int optionNumber;
+
+			try
+			{
+				optionNumber = Integer.parseInt(option);
+			}
+			catch(NumberFormatException e)
+			{
+				optionNumber = 0;
+			}
+			
+			if (optionNumber == 0){
+				System.out.println("Invalid Entry");
+			}
+			else if (optionNumber - 1 > employees.length || optionNumber - 1 < 0){
+				System.out.println("Invalid Entry");
+			}
+			else{
+				selectedEmployee = employees[optionNumber - 1];
+				System.out.println("You have selected " + selectedEmployee.getName());
+				valid = true;
+			}
+		}
+		
+		//Displays hour of selected employee
+		selectedEmployee.loadHours();
+		
+		System.out.println("Please Enter A Day To Add Roster:");
+		
+		System.out.println("Please Enter A Starting Time (Format: h.mm):");
+		
+		System.out.println("Please Enter A Finishing Time (Format: h.mm):");
+
+		return false;
+		
+	}
+	
+	public Employee[] loadEmployees() throws FileNotFoundException{
+		String[] tokens = new String[2];
+		int count = 0;
+		String empName;
+		String empEmail;
+
+		Scanner test = new Scanner(employeeFile);
+		Scanner scanner = new Scanner(employeeFile);
+
+		while (test.hasNextLine())
+		{
+			test.nextLine();
+			count++;
+		}
+		test.close();
+
+		Employee[] employees = new Employee[count];
+
+		for (int i = 0; i < count; i++)
+		{
+			tokens = scanner.nextLine().split(",");
+			empName = tokens[0];
+			empEmail = tokens[1];
+			employees[i] = new Employee(empName, empEmail);
+		}
+		scanner.close();
+
+		return employees;
 	}
 }
 
