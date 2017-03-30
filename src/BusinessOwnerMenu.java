@@ -54,14 +54,13 @@ public class BusinessOwnerMenu
 			switch(optionNumber)
 			{
 			case 1:
-				System.out.println("This is where you will see the add new employees.");
 				addingEmployee.addingEmployee();
 				break;
 			case 2:
 				addHours();
 				break;
 			case 3:
-				System.out.println("This is where you will see the summary of bookings.");
+				System.out.println("This is where I would put my summary of bookings, if I had any!");
 				break;
 			case 4:
 				System.out.println("This is where you will do new booking things.");
@@ -213,12 +212,12 @@ public class BusinessOwnerMenu
 
 	public boolean checkDate(String date){
 		//Check that input is of format dd.MM or dd.M or d.M etc
-		if (!(date.length() == 4))
+		if (!(date.length() == 5))
 		{
 			return false;
 		}
 		
-		if (!(Character.isDigit(date.charAt(0)) && (Character.isDigit(date.charAt(1)) && (date.charAt(2) == '.') && (date.charAt(3) == '0') && (Character.isDigit(date.charAt(4))))))
+		if (!(Character.isDigit(date.charAt(0)) && (Character.isDigit(date.charAt(1)) && (date.charAt(2) == '.') && (Character.isDigit(date.charAt(3))) && (Character.isDigit(date.charAt(4))))))
 		{
 			return false;
 		}
@@ -228,7 +227,7 @@ public class BusinessOwnerMenu
 
 	public boolean checkTime(String time){
 		//Check that input is of format HH:mm or H:mm
-		if (!(time.length() == 4))
+		if (!(time.length() == 5))
 		{
 			return false;
 		}
