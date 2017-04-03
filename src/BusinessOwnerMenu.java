@@ -63,7 +63,6 @@ public class BusinessOwnerMenu
 				addHours();
 				break;
 			case 3:
-				System.out.println("This is where I would put my summary of bookings, if I had any!");
 				bookingSummaries();
 				break;
 			case 4:
