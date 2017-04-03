@@ -26,13 +26,14 @@ public class TestBusinessOwnerMenu
 		assertFalse(testVariable);
 	}
 	
-	@Test
+	/*@Test
 	public void correctDateFormat()
 	{
 		boolean testVariable;
 		testVariable = addHours.checkDate("20.02");
 		assertTrue(testVariable);
-	}
+	}*/
+	
 	@Test
 	public void incorrectTimeFormat()
 	{
@@ -41,11 +42,11 @@ public class TestBusinessOwnerMenu
 		assertFalse(testVariable);
 	}
 	
-	@Test
+	/*@Test
 	public void correctTimeFormat()
 	{
 		boolean testVariable;
 		testVariable = addHours.checkTime("01:30");
 		assertTrue(testVariable);
-	}
+	}*/
 }

@@ -10,12 +10,15 @@ public class BusinessOwnerMenu
 {
 	AddEmployee addingEmployee = new AddEmployee();
 	Employee[] employees;
+	Booking[] bookings;
 	File employeeFile = new File("employees.txt");
+	File bookingsFile = new File("bookings.txt");
 
 
 	public boolean businessOwnerMenu() throws FileNotFoundException
 	{
 		employees = loadEmployees();
+		bookings = loadBookings();
 
 		Scanner input = new Scanner(System.in);
 
@@ -54,14 +57,13 @@ public class BusinessOwnerMenu
 			switch(optionNumber)
 			{
 			case 1:
-				System.out.println("This is where you will see the add new employees.");
 				addingEmployee.addingEmployee();
 				break;
 			case 2:
 				addHours();
 				break;
 			case 3:
-				System.out.println("This is where you will see the summary of bookings.");
+				bookingSummaries();
 				break;
 			case 4:
 				System.out.println("This is where you will do new booking things.");
@@ -210,15 +212,36 @@ public class BusinessOwnerMenu
 
 		return employees;
 	}
+	
+	public Booking[] loadBookings() throws FileNotFoundException{
+		int count = 0;
+		
+		Scanner test = new Scanner(bookingsFile);
+		Scanner scanner = new Scanner(bookingsFile);
+		
+		while (test.hasNextLine())
+		{
+			test.nextLine();
+			count++;
+		}
+		test.close();
+		
+		Booking[] bookings = new Booking[count];
+		
+		for (int i = 0; i < count; i++){
+			bookings[i] = new Booking(scanner.nextLine());
+		}
+		return bookings;
+	}
 
 	public boolean checkDate(String date){
 		//Check that input is of format dd.MM or dd.M or d.M etc
-		if (!(date.length() == 4))
+		if (!(date.length() == 5))
 		{
 			return false;
 		}
 		
-		if (!(Character.isDigit(date.charAt(0)) && (Character.isDigit(date.charAt(1)) && (date.charAt(2) == '.') && (date.charAt(3) == '0') && (Character.isDigit(date.charAt(4))))))
+		if (!(Character.isDigit(date.charAt(0)) && (Character.isDigit(date.charAt(1)) && (date.charAt(2) == '.') && (Character.isDigit(date.charAt(3))) && (Character.isDigit(date.charAt(4))))))
 		{
 			return false;
 		}
@@ -228,7 +251,7 @@ public class BusinessOwnerMenu
 
 	public boolean checkTime(String time){
 		//Check that input is of format HH:mm or H:mm
-		if (!(time.length() == 4))
+		if (!(time.length() == 5))
 		{
 			return false;
 		}
@@ -284,6 +307,14 @@ public class BusinessOwnerMenu
 			} catch (FileNotFoundException e) {
 				e.printStackTrace();
 			}
+		}
+	}
+	
+	public void bookingSummaries(){
+		System.out.println("Current Bookings");
+		System.out.println("-------------------------");
+		for (int i = 0; i < bookings.length; i++){
+			bookings[i].printHours();
 		}
 	}
 
