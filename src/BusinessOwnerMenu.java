@@ -6,6 +6,7 @@ public class BusinessOwnerMenu
 {
 	AddEmployee addingEmployee = new AddEmployee();
 	Employee[] employees;
+	Bookings[] bookings;
 	File employeeFile = new File("employees.txt");
 	
 	
