@@ -1,8 +1,11 @@
+package user;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 import java.util.*;
+
+import owner.Owner;
 public class UserIO {
 	File userFile = new File("users.txt");
 	File ownerFile = new File("business.txt");
