@@ -62,6 +62,7 @@ public class CustomerMenu
 		return true;
 	}
 
+	/*Allows user to enter a date and shows all bookings on that date */
 	public void displayTimes()
 	{
 		boolean hasBookings = false;
