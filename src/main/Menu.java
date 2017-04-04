@@ -80,13 +80,14 @@ public class Menu {
 				}
 				break;
 			case 2:
-				register.registration();
-				try {
-					users = IO.initializeUsers();
-				} catch (FileNotFoundException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
+				int size = users.length;
+				User[] userTemp = users;
+				users = new User[size];
+				users = userTemp;
+				
+				User user = register.registration(users);
+				users[size-1] = user;
+				IO.saveUsers(users);
 				break;
 			case 3:
 				System.out.println("Exiting!");
