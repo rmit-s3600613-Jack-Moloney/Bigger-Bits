@@ -19,7 +19,7 @@ public class CustomerRegister
 		String password = null;
 		String checkPassword = null;
 
-		System.out.println("Enter your desired username: ");
+		System.out.println("Enter your desired username (must be between 4-20 characters): ");
 		
 		boolean valid = false; 
 		
@@ -27,7 +27,16 @@ public class CustomerRegister
 		while(valid == false)
 		{
 			username = scanner.nextLine();
-			valid = checkUsername(username);
+			if(username.toUpperCase().equals("C")){
+				System.out.println("Returning to menu");
+				return null;
+			}else if(username.length() < 4 || username.length() > 20){
+				System.out.println("Username must be between 4-20 characters long (Enter 'C' to cancel)");
+			} 
+			else{
+				valid = checkUsername(username);
+			}
+			
 		}
 		
 		System.out.println("Passwords must be 4-20 characters long and contain both Numbers and Letters");
@@ -42,6 +51,10 @@ public class CustomerRegister
 			if(testPassword(password)){
 				
 			}
+			else if(password.toUpperCase().equals("C")){
+				System.out.println("Returning to menu");
+				return null;
+			}
 			else{
 				System.out.println("Password must be 4-20 characters long and contain both Numbers and Letters");
 				continue;
@@ -55,6 +68,10 @@ public class CustomerRegister
 			{
 				System.out.println("Passwords match!");
 				loop = false;
+			}
+			else if(password.toUpperCase().equals("C")){
+				System.out.println("Returning to menu");
+				return null;
 			}
 			else
 			{
@@ -72,7 +89,7 @@ public class CustomerRegister
 		
 		for (int i = 0; i < users.length; i++)
 			if (username.equals(users[i].getUsername())){
-				System.out.println("Username " +username+ " is already taken, please select another");
+				System.out.println("Username " +username+ " is already taken, please select another (Enter 'C' to cancel)");
 				return false;
 			}
 		return true;
