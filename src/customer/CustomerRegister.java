@@ -30,6 +30,9 @@ public class CustomerRegister
 		}
 		System.out.println("Enter your desired username (must be between 4-20 characters): ");
 		boolean valid = false; 
+		
+		/*Customer enters their preferred username, if not available or incorrect format asks again*/
+
 		while(valid == false)
 		{
 			username = scanner.nextLine();
@@ -47,6 +50,7 @@ public class CustomerRegister
 		
 		System.out.println("Passwords must be 4-20 characters long and contain both Numbers and Letters");
 		
+		/*Customer enters their preferred password, if incorrect format asks again*/
 		while(loop)
 		{	
 			
@@ -68,6 +72,7 @@ public class CustomerRegister
 			
 			System.out.println("Confirm Password: ");
 			
+			/*Gets user to re enter password to check it*/
 			checkPassword = scanner.nextLine();
 			
 			if(password.equals(checkPassword))
@@ -102,7 +107,7 @@ public class CustomerRegister
 		return newUser;
 		
 		}
-	
+	/*Makes sure username has bit been taken*/
 	public boolean checkUsername (String username){
 		
 		for (int i = 0; i < users.length; i++)
@@ -113,6 +118,7 @@ public class CustomerRegister
 		return true;
 	}
 	
+	/*Checks passwords match*/
 	public boolean matchPassword (String password1, String password2){
 		if (password1.equals(password2)){
 			return true;
@@ -122,6 +128,7 @@ public class CustomerRegister
 		}
 	}
 	
+	/*Password testing to make sure it is acceptable*/
 	public boolean testPassword(String password){
 		boolean hasNumber = false;
 		boolean hasLetter = false;

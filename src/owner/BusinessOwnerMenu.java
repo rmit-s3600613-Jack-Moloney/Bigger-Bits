@@ -63,6 +63,8 @@ public class BusinessOwnerMenu
 			{
 			case 1:
 				addingEmployee.addingEmployee();
+				/* Reload employees from file so new employee is in system*/
+				employees = loadEmployees();
 				break;
 			case 2:
 				addHours();
@@ -88,6 +90,7 @@ public class BusinessOwnerMenu
 		return true;
 	}
 
+	/* Allows the owner to select an employee and add hours to their roster*/
 	public boolean addHours() throws FileNotFoundException{
 		Scanner input = new Scanner(System.in);
 		Employee selectedEmployee = null;
@@ -96,7 +99,7 @@ public class BusinessOwnerMenu
 
 
 		System.out.println("--------------------");
-		//Loads employees from Array/File and displays list
+		/*Loads employees from Array/File and displays list*/
 		for (int i = 0; i < employees.length; i++){
 			System.out.print(i + 1 + ". ");
 			System.out.println(employees[i].getName());
@@ -135,7 +138,6 @@ public class BusinessOwnerMenu
 		}
 
 		//Displays hour of selected employee
-		//selectedEmployee.loadHours();
 		selectedEmployee.printHours();
 
 		System.out.println("Please Enter A Date To Add Roster (Format = dd.mm):");
@@ -169,7 +171,13 @@ public class BusinessOwnerMenu
 		while (!valid){
 			endTime = input.nextLine();
 			if(checkTime(endTime)){
-				valid = true;
+				if(compareTimes(startTime, endTime)){
+					valid = true;
+				}
+				else{
+					System.out.println("End time cannot be before start time");
+				}
+				
 			}
 			else{
 				System.out.println("Incorrect Format Used. Please Try Again.");
@@ -187,7 +195,8 @@ public class BusinessOwnerMenu
 		return false;
 
 	}
-
+	
+	/* Loads every employee in the file into an array in the system */
 	public Employee[] loadEmployees() throws FileNotFoundException{
 		String[] tokens = new String[2];
 		int count = 0;
@@ -218,12 +227,14 @@ public class BusinessOwnerMenu
 		return employees;
 	}
 	
+	/* Loads every booking in the file into the system */
 	public Booking[] loadBookings() throws FileNotFoundException{
 		int count = 0;
 		
 		Scanner test = new Scanner(bookingsFile);
 		Scanner scanner = new Scanner(bookingsFile);
 		
+		/* Checks the number of lines in the file so the array size can be defined */
 		while (test.hasNextLine())
 		{
 			test.nextLine();
@@ -238,9 +249,10 @@ public class BusinessOwnerMenu
 		}
 		return bookings;
 	}
-
+	
+	/*Check that input is of format dd.MM*/
 	public boolean checkDate(String date){
-		//Check that input is of format dd.MM or dd.M or d.M etc
+		
 		if (!(date.length() == 5))
 		{
 			return false;
@@ -253,9 +265,10 @@ public class BusinessOwnerMenu
 		
 		return true;
 	}
-
+	
+	/*Check that input is of format HH:mm*/
 	public boolean checkTime(String time){
-		//Check that input is of format HH:mm or H:mm
+		
 		if (!(time.length() == 5))
 		{
 			return false;
@@ -268,9 +281,25 @@ public class BusinessOwnerMenu
 		
 		return true;
 	}
+	
+	/*Compares the input times to ensure the end time is after the start time */
+	public boolean compareTimes(String start, String end){
+		String[] startTok = start.split(":");
+		String[] endTok = end.split(":");
+		if (Integer.parseInt(startTok[0]) > Integer.parseInt(endTok[0])){
+			return false;
+		}
+		else if (Integer.parseInt(startTok[0]) == Integer.parseInt(endTok[0])){
+			if (Integer.parseInt(startTok[1]) > Integer.parseInt(endTok[1])){
+				return false;
+			}
+		}
+		
+		return true;
+	}
 
+	/*Finds the length of the employee array and cycles through the array writing the shift times to the employee's roster*/
 	public void saveRoster() throws FileNotFoundException{
-		//read every employees hours back into the text file
 
 		File testFile = new File("hours.txt");
 
@@ -300,7 +329,8 @@ public class BusinessOwnerMenu
  
 		fw.close();
 	}
-
+	
+	/* Iterates through the employee array and prints all hours */
 	public void displayShifts()
 	{
 		for (int i = 0; i < employees.length; i++)
@@ -315,6 +345,7 @@ public class BusinessOwnerMenu
 		}
 	}
 	
+	/* Iterates through the array of bookings and prints every item*/
 	public void bookingSummaries(){
 		System.out.println("Current Bookings");
 		System.out.println("-------------------------");
