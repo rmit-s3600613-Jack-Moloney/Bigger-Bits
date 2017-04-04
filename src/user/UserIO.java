@@ -66,7 +66,7 @@ public class UserIO {
 		return owner;
 
 	}
-	public void saveUsers(User[] users, ArrayList<User> playerList) throws FileNotFoundException
+	public void saveUsers(User[] users) throws FileNotFoundException
 	{
 		PrintWriter output = new PrintWriter(userFile);
 		for (int i = 0; i < users.length; i++)
@@ -75,11 +75,6 @@ public class UserIO {
 			{
 				output.println(users[i].getUsername() + "," + users[i].getPassword());
 			}
-		}
-		for (int i = 0; i < playerList.size(); i++)
-		{
-			output.println(playerList.get(i).getUsername() + "," + playerList.get(i).getPassword());
-
 		}
 
 		output.close();

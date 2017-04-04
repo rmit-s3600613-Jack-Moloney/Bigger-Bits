@@ -4,12 +4,15 @@ import java.io.File;
 import java.io.IOException;
 import java.util.Scanner;
 
+import user.User;
+
 public class CustomerRegister 
 {
 	public static Scanner scanner = new Scanner(System.in);
-	
-	public boolean registration()
+	public User[] users;
+	public User registration(User[] users)
 	{	
+		this.users = users;
 		boolean loop = true;
 		
 		String username = null;
@@ -59,54 +62,19 @@ public class CustomerRegister
 				System.out.print("\n");
 			}
 		}
+		User newUser = new User(username, password);
 		
-		String filename= "users.txt";
-		FileWriter fw;
-		
-		try 
-		{
-			fw = new FileWriter(filename,true);
-		   
-			fw.write(username);
-			fw.write(",");
-			fw.write(password); 
-			
-			fw.write('\n');
-			fw.close();
-			System.out.println("User registered!");
-			System.out.println("\n");
-		} 
-		
-		catch (IOException e) 
-		{
-			e.printStackTrace();
-		} 
-		return true;
+		return newUser;
 		
 		}
 	
 	public boolean checkUsername (String username){
-		try
-		{
-			File file = new File("users.txt");
 		
-			Scanner scanner = new Scanner(file);
-			while (scanner.hasNextLine()) 
-			{
-				String lineFromFile = scanner.nextLine();
-				if(lineFromFile.contains(username)) 
-				{ 
-					System.out.println("Username " +username+ " is already taken, please select another");
-					return false;
-				}
+		for (int i = 0; i < users.length; i++)
+			if (username.equals(users[i].getUsername())){
+				System.out.println("Username " +username+ " is already taken, please select another");
+				return false;
 			}
-
-		}
-		
-		catch (IOException e) 
-		{
-			e.printStackTrace();
-		}
 		return true;
 	}
 	
