@@ -2,13 +2,17 @@ package user;
 
 public class User {
 
+	private String name;
     private String username;
     private String password;
-    private boolean isOwner;
-
-    public User(String user, String pass){
-        username = user;
-        password = pass;
+    private String address;
+    private String contact;
+    public User (String name, String user, String pass, String address, String contact){
+    	this.name = name;
+        this.username = user;
+        this.password = pass;
+        this.address = address;
+        this.contact = contact;
     }
 
     public String getUsername()
@@ -26,5 +30,17 @@ public class User {
     
     public void setPassword(String password){
     	this.password = password;
+    }
+    public String getName()
+    {
+        return name;
+    }
+
+    public String getAddress(){
+        return address;
+    }
+    
+    public String getContact(){
+        return contact;
     }
 }

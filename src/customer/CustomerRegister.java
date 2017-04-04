@@ -15,15 +15,26 @@ public class CustomerRegister
 		this.users = users;
 		boolean loop = true;
 		
+		String name = null;
 		String username = null;
 		String password = null;
 		String checkPassword = null;
+		String address = null;
+		String contact = null;
 
+		System.out.println("Enter your full name ");
+		name = scanner.nextLine();
+		if(name.toUpperCase().equals("C")){
+			System.out.println("Returning to menu");
+			return null;
+		}
 		System.out.println("Enter your desired username (must be between 4-20 characters): ");
-		
 		boolean valid = false; 
+<<<<<<< HEAD
+=======
 		
-		
+		/*Customer enters their preferred username, if not available or incorrect format asks again*/
+>>>>>>> master
 		while(valid == false)
 		{
 			username = scanner.nextLine();
@@ -41,6 +52,7 @@ public class CustomerRegister
 		
 		System.out.println("Passwords must be 4-20 characters long and contain both Numbers and Letters");
 		
+		/*Customer enters their preferred password, if incorrect format asks again*/
 		while(loop)
 		{	
 			
@@ -62,6 +74,7 @@ public class CustomerRegister
 			
 			System.out.println("Confirm Password: ");
 			
+			/*Gets user to re enter password to check it*/
 			checkPassword = scanner.nextLine();
 			
 			if(password.equals(checkPassword))
@@ -79,12 +92,24 @@ public class CustomerRegister
 				System.out.print("\n");
 			}
 		}
-		User newUser = new User(username, password);
+		System.out.println("Enter in your address");
+		address = scanner.nextLine();
+		if(username.toUpperCase().equals("C")){
+			System.out.println("Returning to menu");
+			return null;
+		}
+		System.out.println("Enter in your contact number");
+		contact = scanner.nextLine();
+		if(username.toUpperCase().equals("C")){
+			System.out.println("Returning to menu");
+			return null;
+		}
+		User newUser = new User(name, username, password, address, contact);
 		
 		return newUser;
 		
 		}
-	
+	/*Makes sure username has bit been taken*/
 	public boolean checkUsername (String username){
 		
 		for (int i = 0; i < users.length; i++)
@@ -95,6 +120,7 @@ public class CustomerRegister
 		return true;
 	}
 	
+	/*Checks passwords match*/
 	public boolean matchPassword (String password1, String password2){
 		if (password1.equals(password2)){
 			return true;
@@ -104,6 +130,7 @@ public class CustomerRegister
 		}
 	}
 	
+	/*Password testing to make sure it is acceptable*/
 	public boolean testPassword(String password){
 		boolean hasNumber = false;
 		boolean hasLetter = false;
