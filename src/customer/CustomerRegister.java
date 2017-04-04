@@ -30,11 +30,10 @@ public class CustomerRegister
 		}
 		System.out.println("Enter your desired username (must be between 4-20 characters): ");
 		boolean valid = false; 
-<<<<<<< HEAD
-=======
+
 		
 		/*Customer enters their preferred username, if not available or incorrect format asks again*/
->>>>>>> master
+
 		while(valid == false)
 		{
 			username = scanner.nextLine();
