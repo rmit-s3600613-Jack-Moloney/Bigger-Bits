@@ -25,8 +25,8 @@ public class Menu {
 
 	public void menu() throws FileNotFoundException
 	{
-		
-		
+
+
 		/* Imports the owner and users into the system */
 		logger.fine("Attempting to open the files and import data");
 		try {
@@ -84,10 +84,13 @@ public class Menu {
 				User[] userTemp = users;
 				users = new User[size];
 				users = userTemp;
-				
+
 				User user = register.registration(users);
-				users[size-1] = user;
-				IO.saveUsers(users);
+				if (user != null){
+					users[size-1] = user;
+					IO.saveUsers(users);
+				}
+
 				break;
 			case 3:
 				System.out.println("Exiting!");
