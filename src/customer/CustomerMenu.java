@@ -23,6 +23,7 @@ public class CustomerMenu
 		System.out.println("Welcome to the Customer Menu");
 		System.out.println("--------------------------------");
 		
+		/*Loads the menu, allows logging out to the main menu*/
 		while(loop)
 		{
 

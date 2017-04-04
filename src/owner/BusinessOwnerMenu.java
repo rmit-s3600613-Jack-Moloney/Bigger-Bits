@@ -99,7 +99,7 @@ public class BusinessOwnerMenu
 
 
 		System.out.println("--------------------");
-		//Loads employees from Array/File and displays list
+		/*Loads employees from Array/File and displays list*/
 		for (int i = 0; i < employees.length; i++){
 			System.out.print(i + 1 + ". ");
 			System.out.println(employees[i].getName());
@@ -249,9 +249,10 @@ public class BusinessOwnerMenu
 		}
 		return bookings;
 	}
-
+	
+	/*Check that input is of format dd.MM*/
 	public boolean checkDate(String date){
-		//Check that input is of format dd.MM or dd.M or d.M etc
+		
 		if (!(date.length() == 5))
 		{
 			return false;
@@ -264,9 +265,10 @@ public class BusinessOwnerMenu
 		
 		return true;
 	}
-
+	
+	/*Check that input is of format HH:mm*/
 	public boolean checkTime(String time){
-		//Check that input is of format HH:mm or H:mm
+		
 		if (!(time.length() == 5))
 		{
 			return false;
@@ -296,8 +298,8 @@ public class BusinessOwnerMenu
 		return true;
 	}
 
+	/*Finds the length of the employee array and cycles through the array writing the shift times to the employee's roster*/
 	public void saveRoster() throws FileNotFoundException{
-		//read every employees hours back into the text file
 
 		File testFile = new File("hours.txt");
 
