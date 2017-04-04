@@ -1,5 +1,3 @@
 Dominic,dom@rmit.edu.au
 Jack,jack@rmit.edu.au
 Sam,sam@sam.com
-John,john@doe
-Billy,billy@billy.com

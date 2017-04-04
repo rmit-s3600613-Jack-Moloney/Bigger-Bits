@@ -63,6 +63,7 @@ public class BusinessOwnerMenu
 			{
 			case 1:
 				addingEmployee.addingEmployee();
+				/* Reload employees from file so new employee is in system*/
 				employees = loadEmployees();
 				break;
 			case 2:
