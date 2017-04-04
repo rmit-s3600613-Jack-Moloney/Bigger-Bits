@@ -80,16 +80,23 @@ public class Menu {
 				}
 				break;
 			case 2:
-				int size = users.length;
-				User[] userTemp = users;
-				users = new User[size];
-				users = userTemp;
 
+				int size = users.length;
+				System.out.println("Size = "+size);
 				User user = register.registration(users);
+				
+				User[] userTemp = users;
+				users = new User[size+1];
+				
+				for(int i = 0; i < userTemp.length; ++i) {
+					users[i] = userTemp[i];
+				}
+				
 				if (user != null){
-					users[size-1] = user;
+					users[size] = user;
 					IO.saveUsers(users);
 				}
+				System.out.println("Size = "+users.length);
 
 				break;
 			case 3:
