@@ -1,7 +1,10 @@
+package user;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.text.SimpleDateFormat;
 import java.util.Scanner;
+
+import booking.Shift;
 
 public class Employee {
 	private String name;

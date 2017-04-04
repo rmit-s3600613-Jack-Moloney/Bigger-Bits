@@ -1,3 +1,5 @@
+package owner;
+import user.User;
 
 public class Owner extends User {
 
