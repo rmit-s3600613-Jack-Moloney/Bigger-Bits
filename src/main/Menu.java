@@ -1,6 +1,15 @@
+package main;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
 import java.util.logging.*;
+
+import customer.CustomerMenu;
+import customer.CustomerRegister;
+import customer.Login;
+import owner.BusinessOwnerMenu;
+import owner.Owner;
+import user.User;
+import user.UserIO;
 
 
 public class Menu {
@@ -16,8 +25,8 @@ public class Menu {
 
 	public void menu() throws FileNotFoundException
 	{
-		
-		
+
+
 		/* Imports the owner and users into the system */
 		logger.fine("Attempting to open the files and import data");
 		try {
@@ -44,6 +53,7 @@ public class Menu {
 			System.out.println("Enter an option: ");
 			String option = input.nextLine();
 
+			/* Makes sure the input is a correct integer */
 			int optionNumber;
 			try
 			{
@@ -59,25 +69,38 @@ public class Menu {
 			case 1:
 				/* Runs the log in function */
 				user = login.logInMenu(users, owners);
-				/*  */
+				/* If no user is returned, then the log-in failed */
 				if(user == null){
 					System.out.println("Log-in failed");
 				}
+				/* If the user was an owner, then send to owner menu */
 				else if (user instanceof Owner){
 					ownerMenu.businessOwnerMenu();
 				}
+				/* If the user was a customer, send to the customer menu */
 				else{
 					custMenu.customerMenu();
 				}
 				break;
 			case 2:
-				register.registration();
-				try {
-					users = IO.initializeUsers();
-				} catch (FileNotFoundException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
+				int size = users.length;
+				/* Creates a new user from the returned user from the register function */
+				User user = register.registration(users);
+				/* If the user was not returned as null, then save the users */
+				if (user == null){
+					break;
 				}
+				/* Create a temporary user array to hold the current */
+				User[] userTemp = users;
+				/* Repopulate the original elements held in temp back into "users" */
+				for(int i = 0; i < userTemp.length; ++i) {
+					users[i] = userTemp[i];
+				}
+				/* Makes the old array 1 size bigger */
+				users = new User[size+1];
+				/* Sets the last item in array as the new user, then saves to file */
+				users[size] = user;
+				IO.saveUsers(users);
 				break;
 			case 3:
 				System.out.println("Exiting!");

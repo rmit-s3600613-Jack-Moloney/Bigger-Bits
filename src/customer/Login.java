@@ -1,4 +1,9 @@
+package customer;
 import java.util.Scanner;
+
+import owner.Owner;
+import user.User;
+import user.UserIO;
 
 import java.util.Scanner;
 import java.io.FileNotFoundException;
@@ -6,7 +11,7 @@ import java.io.FileNotFoundException;
 
 public class Login {
 	/* An array of users is stored, to hold all current users of the system */
-	User[] users;
+	public User[] users;
 	/* The system only has one owner */
 	Owner owner;
 	UserIO IO;
