@@ -66,22 +66,29 @@ public class CustomerMenu
 	{
 		boolean hasBookings = false;
 		Scanner input = new Scanner(System.in);
-
-		System.out.println("Enter the day you are interested in. Eg. If you want the 20/4 just enter '20'.");
-
-		String day = input.nextLine();
-
-		int dayNumber;
-
-		try
-		{
-			dayNumber = Integer.parseInt(day);
-		}
-		catch(NumberFormatException e)
-		{
-			dayNumber = 0;
-		}
+		boolean valid = false;
+		int dayNumber = 0;
 		
+		System.out.println("Enter the day you are interested in. Eg. If you want the 20/4 just enter '20'.");
+		while (!valid){
+			
+			String day = input.nextLine();
+			if (testDateInput(day)){
+				valid = true;
+			}
+			else{
+				System.out.println("Invalid Input.Please try again");
+			}
+
+			try
+			{
+				dayNumber = Integer.parseInt(day);
+			}
+			catch(NumberFormatException e)
+			{
+				dayNumber = 0;
+			}
+		}
 		System.out.println("-------------------------");
 		System.out.println("Available times on " + dayNumber + "/4");
 		System.out.println("-------------------------");
@@ -113,13 +120,15 @@ public class CustomerMenu
 		}
 		System.out.println("-------------------------");
 	}
-
+	
+	/* Loads all bookings in the file into an array */
 	public Booking[] loadBookings() throws FileNotFoundException{
 		int count = 0;
 
 		Scanner test = new Scanner(bookingsFile);
 		Scanner scanner = new Scanner(bookingsFile);
-
+		
+		/* Checks how many lines are in the file so the array length can be defined */
 		while (test.hasNextLine())
 		{
 			test.nextLine();
@@ -133,5 +142,26 @@ public class CustomerMenu
 			bookings[i] = new Booking(scanner.nextLine());
 		}
 		return bookings;
+	}
+	
+	/* Test the date input by the user to ensure it is correct*/
+	public boolean testDateInput(String date){
+		/* Checks that all characters are digits */
+		for (int i = 0; i < date.length(); i++){
+			if(!Character.isDigit(date.charAt(i))){
+				return false;
+			}
+		}
+		
+		/* Checks that the input is one or two digits long */
+		if (date.length() > 2 || date.length() < 1){
+			return false;
+		}
+		
+		/* Checks that the input is within the acceptable range for a date */
+		else if (Integer.parseInt(date) > 31 || Integer.parseInt(date) < 1){
+			return false;
+		}
+		return true;
 	}
 }
