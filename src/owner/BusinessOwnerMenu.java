@@ -63,6 +63,7 @@ public class BusinessOwnerMenu
 			{
 			case 1:
 				addingEmployee.addingEmployee();
+				employees = loadEmployees();
 				break;
 			case 2:
 				addHours();
