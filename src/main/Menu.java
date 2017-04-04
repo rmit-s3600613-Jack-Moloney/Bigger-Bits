@@ -37,6 +37,7 @@ public class Menu {
 		}
 
 
+
 		Scanner input = new Scanner(System.in);
 		boolean loop = true;
 
@@ -51,6 +52,7 @@ public class Menu {
 			System.out.println("3.Quit");
 			System.out.println("--------------------------------");
 			System.out.println("Enter an option: ");
+			System.out.println("At any time, enter 'c' to cancel");
 			String option = input.nextLine();
 
 			/* Makes sure the input is a correct integer */
@@ -86,18 +88,19 @@ public class Menu {
 				int size = users.length;
 				/* Creates a new user from the returned user from the register function */
 				User user = register.registration(users);
+
 				/* If the user was not returned as null, then save the users */
 				if (user == null){
 					break;
 				}
 				/* Create a temporary user array to hold the current */
 				User[] userTemp = users;
+				/* Makes the old array 1 size bigger */
+				users = new User[size+1];
 				/* Repopulate the original elements held in temp back into "users" */
 				for(int i = 0; i < userTemp.length; ++i) {
 					users[i] = userTemp[i];
 				}
-				/* Makes the old array 1 size bigger */
-				users = new User[size+1];
 				/* Sets the last item in array as the new user, then saves to file */
 				users[size] = user;
 				IO.saveUsers(users);
