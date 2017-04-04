@@ -67,7 +67,7 @@ public class Login {
 			valid = searchPassword(username, password, owner);
 			
 			if (valid == 0){
-				user = new User(username, password);
+				user = users[userLocation];
 			}
 			else if (valid == 1){
 				user = null;
