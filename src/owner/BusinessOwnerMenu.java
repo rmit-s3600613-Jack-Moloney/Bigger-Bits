@@ -39,9 +39,8 @@ public class BusinessOwnerMenu
 			System.out.println("1. Add New Employee");
 			System.out.println("2. Add Rosters for Employees");
 			System.out.println("3. Summary of Bookings");
-			System.out.println("4. New Booking");
-			System.out.println("5. Workers Shifts");
-			System.out.println("6. Logout");
+			System.out.println("4. Workers Shifts");
+			System.out.println("5. Logout");
 			System.out.println("--------------------------------");
 			System.out.println("Enter an option: ");
 
@@ -73,12 +72,9 @@ public class BusinessOwnerMenu
 				bookingSummaries();
 				break;
 			case 4:
-				System.out.println("This is where you will do new booking things.");
-				break;
-			case 5:
 				displayShifts();
 				break;
-			case 6:
+			case 5:
 				System.out.println("Returning to main menu");
 				loop = false;
 				break;
