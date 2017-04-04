@@ -65,7 +65,6 @@ public class CustomerMenu
 	/*Allows user to enter a date and shows all bookings on that date */
 	public void displayTimes()
 	{
-		boolean hasBookings = false;
 		Scanner input = new Scanner(System.in);
 		boolean valid = false;
 		int dayNumber = 0;
