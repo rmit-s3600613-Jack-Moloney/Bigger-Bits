@@ -7,15 +7,18 @@ import java.util.*;
 
 import owner.Owner;
 public class UserIO {
-	File userFile = new File("users.txt");
+	File userFile = new File("customerinfo.txt");
 	File ownerFile = new File("business.txt");
 	
 	public User[] initializeUsers() throws FileNotFoundException
 	{
 		String[] tokens = new String[2];
 		int count = 0;
+		String name;
 		String username;
 		String password;
+		String address;
+		String contact;
 
 		Scanner test = new Scanner(userFile);
 		Scanner scanner = new Scanner(userFile);
@@ -32,9 +35,13 @@ public class UserIO {
 		for (int i = 0; i < count; i++)
 		{
 			tokens = scanner.nextLine().split(",");
-			username = tokens[0];
-			password = tokens[1];
-			user[i] = new User(username, password);
+			name = tokens[0];
+			username = tokens[1];
+			password = tokens[2];
+			address = tokens[3];
+			contact = tokens[4];
+
+			user[i] = new User(name, username, password, address, contact);
 		}
 		scanner.close();
 
@@ -48,7 +55,7 @@ public class UserIO {
 	    String business;
 	    String name;
 	    String address;
-	    int phone;
+	    String phone;
 		Scanner scanner = new Scanner(ownerFile);
 		Owner owner;
 
@@ -58,7 +65,7 @@ public class UserIO {
 		business = tokens[2];
 		name = tokens[3];
 		address = tokens[4];
-		phone = Integer.parseInt(tokens[5]);
+		phone = tokens[5];
 		
 		owner = new Owner(username, password, business, name, address, phone);
 
@@ -73,7 +80,7 @@ public class UserIO {
 		{
 			if (users[i] != null)
 			{
-				output.println(users[i].getUsername() + "," + users[i].getPassword());
+				output.println(users[i].getName() + "," + users[i].getUsername() + "," + users[i].getPassword() + "," + users[i].getAddress() + "," + users[i].getContact());
 			}
 		}
 
