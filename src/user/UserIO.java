@@ -80,7 +80,6 @@ public class UserIO {
 		{
 			if (users[i] != null)
 			{
-				System.out.println(users[i].getName());
 				output.println(users[i].getName() + "," + users[i].getUsername() + "," + users[i].getPassword() + "," + users[i].getAddress() + "," + users[i].getContact());
 			}
 		}
