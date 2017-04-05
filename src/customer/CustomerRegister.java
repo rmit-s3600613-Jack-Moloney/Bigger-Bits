@@ -1,15 +1,14 @@
 package customer;
-import java.io.FileWriter;
-import java.io.File;
-import java.io.IOException;
 import java.util.Scanner;
 
+import util.Util;
 import user.User;
 
 public class CustomerRegister 
 {
 	public static Scanner scanner = new Scanner(System.in);
 	public User[] users;
+	public Util util = new Util();
 	public User registration(User[] users)
 	{	
 		this.users = users;
@@ -27,12 +26,10 @@ public class CustomerRegister
 		
 		while(valid == false){
 			name = scanner.nextLine();
-			if(name.toUpperCase().equals("C")){
-				System.out.println("Returning to menu");
+			if(util.validateCancel(name) == false){
+				return null;
 			}
-			else if(name.indexOf(',') >= 0){
-				System.out.println("The character ',' is not allowed, please try again");
-			}
+			else if(util.validateComma(name) == false);
 			else{
 				valid = true;
 			}
@@ -44,15 +41,13 @@ public class CustomerRegister
 		while(valid == false)
 		{
 			username = scanner.nextLine();
-			if(username.toUpperCase().equals("C")){
-				System.out.println("Returning to menu");
+			if(util.validateCancel(username) == false){
 				return null;
-			}else if(username.length() < 4 || username.length() > 20){
+			}
+			else if(util.validateComma(username) == false);
+			else if(username.length() < 4 || username.length() > 20){
 				System.out.println("Username must be between 4-20 characters long (Enter 'C' to cancel)");
 			} 
-			else if(username.indexOf(',') >= 0){
-				System.out.println("The character ',' is not allowed, please try again");
-			}
 			else{
 				valid = checkUsername(username);
 			}
@@ -68,19 +63,13 @@ public class CustomerRegister
 			System.out.println("Enter your desired password: ");
 
 			password = scanner.nextLine();
-
-			if(password.indexOf(',') >= 0){
-				System.out.println("The character ',' is not allowed, please try again");
-				continue;
-			}
-			else if(testPassword(password)){
-
-			}
-			else if(password.toUpperCase().equals("C")){
-				System.out.println("Returning to menu");
+			if(util.validateCancel(password) == false){
 				return null;
 			}
-			
+			else if(util.validateComma(password) == false){
+				continue;
+			}
+			else if(testPassword(password));
 			else{
 				System.out.println("Password must be 4-20 characters long and contain both Numbers and Letters");
 				continue;
@@ -96,8 +85,7 @@ public class CustomerRegister
 				System.out.println("Passwords match!");
 				loop = false;
 			}
-			else if(password.toUpperCase().equals("C")){
-				System.out.println("Returning to menu");
+			if(util.validateCancel(password) == false){
 				return null;
 			}
 			else
@@ -110,12 +98,10 @@ public class CustomerRegister
 		valid = false;
 		while(valid == false){
 			address = scanner.nextLine();
-			if(address.toUpperCase().equals("C")){
-				System.out.println("Returning to menu");
+			if(util.validateCancel(address) == false){
+				return null;
 			}
-			else if(address.indexOf(',') >= 0){
-				System.out.println("The character ',' is not allowed, please try again");
-			}
+			else if(util.validateComma(address) == false);
 			else{
 				valid = true;
 			}
@@ -125,12 +111,10 @@ public class CustomerRegister
 		valid = false;
 		while(valid == false){
 			contact = scanner.nextLine();
-			if(contact.toUpperCase().equals("C")){
-				System.out.println("Returning to menu");
+			if(util.validateCancel(contact) == false){
+				return null;
 			}
-			else if(contact.indexOf(',') >= 0){
-				System.out.println("The character ',' is not allowed, please try again");
-			}
+			else if(util.validateComma(contact) == false);
 			else if (contact.contains("[a-zA-Z]+") == true){
 				System.out.println("Please only type numbers, not characters.");
 				continue;
