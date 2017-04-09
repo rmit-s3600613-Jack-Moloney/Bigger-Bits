@@ -62,7 +62,7 @@ public class BusinessOwnerMenu
 			switch(optionNumber)
 			{
 			case 1:
-				addingEmployee.addingEmployee();
+				addingEmployee.addingEmployee(employees);
 				/* Reload employees from file so new employee is in system*/
 				employees = loadEmployees();
 				break;
