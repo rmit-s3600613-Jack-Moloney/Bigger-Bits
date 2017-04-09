@@ -6,12 +6,17 @@ import java.util.Scanner;
 import java.util.logging.*;
 import java.util.regex.Pattern;
 
+import user.Employee;
+import util.Util;
+
 public class AddEmployee {
 	public static Scanner scanner = new Scanner(System.in);
 	private static final Logger logger = Logger.getLogger(AddEmployee.class.getName());
-	
-	public boolean addingEmployee()
+	Employee[] employees;
+	public boolean addingEmployee(Employee[] employees)
 	{
+		this.employees = employees;
+		Util util = new Util();
 		boolean loop = true;
 
 		String name = null;
@@ -24,12 +29,22 @@ public class AddEmployee {
 		/* Loop which constantly reads input until a valid name is entered. */
 		while(valid == false){
 			name = scanner.nextLine();
+			if(util.validateComma(name) == false){
+				continue;
+			}
 			valid = checkName(name);
+
 		}
-		
+
+		valid = false;
 		System.out.println("Please Enter an Email Address");
-		email = scanner.nextLine();
-		
+		while(valid == false){
+			email = scanner.nextLine();
+			if(util.validateComma(email) == true){
+				valid = true;
+			}
+		}
+
 		String filename = "employees.txt";
 		FileWriter fw;
 
@@ -82,26 +97,12 @@ public class AddEmployee {
 
 	/* Check name functions makes sure the name does not already exist within the text file */
 	public boolean checkName ( String name){
-		logger.fine("Attempting to read from file");
-
-		try{
-			File file = new File("employees.txt");
-
-			Scanner scanner = new Scanner(file);
-			while (scanner.hasNextLine())
-			{
-				String lineFromFile = scanner.nextLine();
-				if(lineFromFile.contains(name))
-				{
-					System.out.println("Name " +name+ " already exists in employee database");
-					return false;
-				}
+		
+		for (int i = 0; i < employees.length; i++)
+			if (name.equals(employees[i].getName())){
+				System.out.println("Username " +name+ " is already taken, please select another (Enter 'C' to cancel)");
+				return false;
 			}
-		}
-		catch (IOException e){
-			logger.log(Level.WARNING, "Unable to read from file", e);
-
-		}
 		return true;
 	}
 	/*
@@ -112,5 +113,5 @@ public class AddEmployee {
 		System.out.println(matcher.matches());
 		return matcher.matches();
 	}
-	*/
+	 */
 }

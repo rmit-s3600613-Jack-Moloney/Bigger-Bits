@@ -2,14 +2,16 @@ package user;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.*;
+import java.util.logging.Level;
 
 import owner.Owner;
 public class UserIO {
 	File userFile = new File("customerinfo.txt");
 	File ownerFile = new File("business.txt");
-	
+
 	public User[] initializeUsers() throws FileNotFoundException
 	{
 		String[] tokens = new String[2];
@@ -51,11 +53,11 @@ public class UserIO {
 	{
 		String[] tokens = new String[6];
 		String username;
-	    String password;
-	    String business;
-	    String name;
-	    String address;
-	    String phone;
+		String password;
+		String business;
+		String name;
+		String address;
+		String phone;
 		Scanner scanner = new Scanner(ownerFile);
 		Owner owner;
 
@@ -66,7 +68,7 @@ public class UserIO {
 		name = tokens[3];
 		address = tokens[4];
 		phone = tokens[5];
-		
+
 		owner = new Owner(username, password, business, name, address, phone);
 
 		scanner.close();
@@ -86,5 +88,6 @@ public class UserIO {
 
 		output.close();
 	}
+
 
 }
