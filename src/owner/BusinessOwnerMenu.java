@@ -1,20 +1,32 @@
+package owner;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.Date;
 import java.util.Scanner;
+
+import booking.Booking;
+import booking.Shift;
+import user.Employee;
 
 public class BusinessOwnerMenu 
 {
 	AddEmployee addingEmployee = new AddEmployee();
 	Employee[] employees;
+	Booking[] bookings;
 	File employeeFile = new File("employees.txt");
-	
-	
+	File bookingsFile = new File("bookings.txt");
+
+
 	public boolean businessOwnerMenu() throws FileNotFoundException
 	{
 		employees = loadEmployees();
-		
+		bookings = loadBookings();
+
 		Scanner input = new Scanner(System.in);
-		
+
 		System.out.println("Welcome to the Business Owner Menu");
 
 		boolean loop = true;
@@ -28,14 +40,14 @@ public class BusinessOwnerMenu
 			System.out.println("2. Add Rosters for Employees");
 			System.out.println("3. Summary of Bookings");
 			System.out.println("4. New Booking");
-			System.out.println("5. Workers Availabilty");
+			System.out.println("5. Workers Shifts");
 			System.out.println("6. Logout");
 			System.out.println("--------------------------------");
 			System.out.println("Enter an option: ");
-			
-			
+
+
 			String option = input.nextLine();
-			
+
 			int optionNumber;
 
 			try
@@ -46,25 +58,25 @@ public class BusinessOwnerMenu
 			{
 				optionNumber = 0;
 			}
-			
+
 			switch(optionNumber)
 			{
 			case 1:
-				System.out.println("This is where you will see the add new employees.");
-				addingEmployee.addingEmployee();
+				addingEmployee.addingEmployee(employees);
+				/* Reload employees from file so new employee is in system*/
+				employees = loadEmployees();
 				break;
 			case 2:
-				System.out.println("This is where you will see the add roster for employees.");
 				addHours();
 				break;
 			case 3:
-				System.out.println("This is where you will see the summary of bookings.");
+				bookingSummaries();
 				break;
 			case 4:
 				System.out.println("This is where you will do new booking things.");
 				break;
 			case 5:
-				System.out.println("This is where you will see the workers availability.");
+				displayShifts();
 				break;
 			case 6:
 				System.out.println("Returning to main menu");
@@ -77,24 +89,31 @@ public class BusinessOwnerMenu
 		}
 		return true;
 	}
-	
+
+	/* Allows the owner to select an employee and add hours to their roster*/
 	public boolean addHours() throws FileNotFoundException{
 		Scanner input = new Scanner(System.in);
 		Employee selectedEmployee = null;
 		boolean valid = false;
-		
+
+
+
 		System.out.println("--------------------");
-		//Loads employees from Array/File and displays list
+		/*Loads employees from Array/File and displays list*/
 		for (int i = 0; i < employees.length; i++){
 			System.out.print(i + 1 + ". ");
 			System.out.println(employees[i].getName());
 		}
-		
+
 		int optionNumber = -1;
 		while (!valid){
 			System.out.println("Please Select An Employee(Number Only):");
 			String option = input.nextLine();
-			
+
+			for (int i = 0; i < employees.length; i ++)
+			{
+				employees[i].loadHours();
+			}
 
 			try
 			{
@@ -104,7 +123,7 @@ public class BusinessOwnerMenu
 			{
 				optionNumber = 0;
 			}
-			
+
 			if (optionNumber == 0){
 				System.out.println("Invalid Entry");
 			}
@@ -117,12 +136,11 @@ public class BusinessOwnerMenu
 				valid = true;
 			}
 		}
-		
+
 		//Displays hour of selected employee
-		selectedEmployee.loadHours();
 		selectedEmployee.printHours();
-		
-		System.out.println("Please Enter A Date To Add Roster (Format = dd.m):");
+
+		System.out.println("Please Enter A Date To Add Roster (Format = dd.mm):");
 		String selectedDate = null;
 		valid = false;
 		while (!valid){
@@ -134,8 +152,8 @@ public class BusinessOwnerMenu
 				System.out.println("Incorrect Format Used. Please Try Again.");
 			}		
 		}
-		
-		System.out.println("Please Enter A Starting Time (Format: h:mm):");
+
+		System.out.println("Please Enter A Starting Time (Format: hh:mm):");
 		valid = false;
 		String startTime = null;
 		while (!valid){
@@ -147,13 +165,19 @@ public class BusinessOwnerMenu
 				System.out.println("Incorrect Format Used. Please Try Again.");
 			}		
 		}
-		System.out.println("Please Enter A Finishing Time (Format: h:mm):");
+		System.out.println("Please Enter A Finishing Time (Format: hh:mm):");
 		String endTime = null;
 		valid = false;
 		while (!valid){
 			endTime = input.nextLine();
 			if(checkTime(endTime)){
-				valid = true;
+				if(compareTimes(startTime, endTime)){
+					valid = true;
+				}
+				else{
+					System.out.println("End time cannot be before start time");
+				}
+				
 			}
 			else{
 				System.out.println("Incorrect Format Used. Please Try Again.");
@@ -163,15 +187,16 @@ public class BusinessOwnerMenu
 		shiftTime = shiftTime.concat("." + startTime + ".");
 		shiftTime = shiftTime.concat(endTime);
 		System.out.println(shiftTime);
-		
+
 		Shift newShift = new Shift(shiftTime);
 		employees[optionNumber - 1].updateRoster(newShift);
 		saveRoster();
-		
+
 		return false;
-		
+
 	}
 	
+	/* Loads every employee in the file into an array in the system */
 	public Employee[] loadEmployees() throws FileNotFoundException{
 		String[] tokens = new String[2];
 		int count = 0;
@@ -202,21 +227,135 @@ public class BusinessOwnerMenu
 		return employees;
 	}
 	
+	/* Loads every booking in the file into the system */
+	public Booking[] loadBookings() throws FileNotFoundException{
+		int count = 0;
+		
+		Scanner test = new Scanner(bookingsFile);
+		Scanner scanner = new Scanner(bookingsFile);
+		
+		/* Checks the number of lines in the file so the array size can be defined */
+		while (test.hasNextLine())
+		{
+			test.nextLine();
+			count++;
+		}
+		test.close();
+		
+		Booking[] bookings = new Booking[count];
+		
+		for (int i = 0; i < count; i++){
+			bookings[i] = new Booking(scanner.nextLine());
+		}
+		return bookings;
+	}
+	
+	/*Check that input is of format dd.MM*/
 	public boolean checkDate(String date){
-		//Check that input is of format dd.MM or dd.M or d.M etc
+		
+		if (!(date.length() == 5))
+		{
+			return false;
+		}
+		
+		if (!(Character.isDigit(date.charAt(0)) && (Character.isDigit(date.charAt(1)) && (date.charAt(2) == '.') && (Character.isDigit(date.charAt(3))) && (Character.isDigit(date.charAt(4))))))
+		{
+			return false;
+		}
 		
 		return true;
 	}
 	
+	/*Check that input is of format HH:mm*/
 	public boolean checkTime(String time){
-		//Check that input is of format HH:mm or H:mm
+		
+		if (!(time.length() == 5))
+		{
+			return false;
+		}
+		
+		if (!(Character.isDigit(time.charAt(0)) && (Character.isDigit(time.charAt(1)) && (time.charAt(2) == ':') && (Character.isDigit(time.charAt(3)) && (Character.isDigit(time.charAt(4)))))))
+		{
+			return false;
+		}
 		
 		return true;
 	}
 	
-	public void saveRoster(){
-		//read every employees hours back into the text file
+	/*Compares the input times to ensure the end time is after the start time */
+	public boolean compareTimes(String start, String end){
+		String[] startTok = start.split(":");
+		String[] endTok = end.split(":");
+		if (Integer.parseInt(startTok[0]) > Integer.parseInt(endTok[0])){
+			return false;
+		}
+		else if (Integer.parseInt(startTok[0]) == Integer.parseInt(endTok[0])){
+			if (Integer.parseInt(startTok[1]) > Integer.parseInt(endTok[1])){
+				return false;
+			}
+		}
 		
+		return true;
 	}
+
+	/*Finds the length of the employee array and cycles through the array writing the shift times to the employee's roster*/
+	public void saveRoster() throws FileNotFoundException{
+
+		File testFile = new File("hours.txt");
+
+		PrintWriter output = new PrintWriter(testFile);
+
+
+		PrintWriter fw = new PrintWriter(output);			
+
+		for (int i = 0; i < employees.length; i++)
+		{
+			fw.write(employees[i].getName());
+			fw.write(","); 
+
+			for (int j = 0; j < employees[i].getRoster().length; j++)
+			{
+				Shift[] employeeRoster = employees[i].getRoster();
+
+				Date start = employeeRoster[j].getStart();
+				Date end = employeeRoster[j].getEnd();
+
+				output.print(start.getDate() + "." + (start.getMonth()+1) + "." + start.getHours() + ":" + start.getMinutes() + "." + end.getHours() + ":" + end.getMinutes());
+				fw.write(",");
+			}
+
+			fw.write("\n");
+		}
+ 
+		fw.close();
+	}
+	
+	/* Iterates through the employee array and prints all hours */
+	public void displayShifts()
+	{
+		for (int i = 0; i < employees.length; i++)
+		{
+			try {
+				employees[i].loadHours();
+				System.out.println(employees[i].getName());
+				employees[i].printHours();
+			} catch (FileNotFoundException e) {
+				e.printStackTrace();
+			}
+		}
+	}
+	
+	/* Iterates through the array of bookings and prints every item*/
+	public void bookingSummaries(){
+		System.out.println("Current Bookings");
+		System.out.println("-------------------------");
+		for (int i = 0; i < bookings.length; i++){
+			bookings[i].printHours();
+		}
+	}
+
 }
+
+
+
 

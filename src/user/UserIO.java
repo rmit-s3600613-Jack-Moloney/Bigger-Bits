@@ -1,18 +1,26 @@
+package user;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.*;
+import java.util.logging.Level;
+
+import owner.Owner;
 public class UserIO {
-	File userFile = new File("users.txt");
+	File userFile = new File("customerinfo.txt");
 	File ownerFile = new File("business.txt");
-	
+
 	public User[] initializeUsers() throws FileNotFoundException
 	{
 		String[] tokens = new String[2];
 		int count = 0;
+		String name;
 		String username;
 		String password;
+		String address;
+		String contact;
 
 		Scanner test = new Scanner(userFile);
 		Scanner scanner = new Scanner(userFile);
@@ -29,9 +37,13 @@ public class UserIO {
 		for (int i = 0; i < count; i++)
 		{
 			tokens = scanner.nextLine().split(",");
-			username = tokens[0];
-			password = tokens[1];
-			user[i] = new User(username, password);
+			name = tokens[0];
+			username = tokens[1];
+			password = tokens[2];
+			address = tokens[3];
+			contact = tokens[4];
+
+			user[i] = new User(name, username, password, address, contact);
 		}
 		scanner.close();
 
@@ -41,11 +53,11 @@ public class UserIO {
 	{
 		String[] tokens = new String[6];
 		String username;
-	    String password;
-	    String business;
-	    String name;
-	    String address;
-	    int phone;
+		String password;
+		String business;
+		String name;
+		String address;
+		String phone;
 		Scanner scanner = new Scanner(ownerFile);
 		Owner owner;
 
@@ -55,31 +67,27 @@ public class UserIO {
 		business = tokens[2];
 		name = tokens[3];
 		address = tokens[4];
-		phone = Integer.parseInt(tokens[5]);
-		
+		phone = tokens[5];
+
 		owner = new Owner(username, password, business, name, address, phone);
 
 		scanner.close();
 		return owner;
 
 	}
-	public void saveUsers(User[] users, ArrayList<User> playerList) throws FileNotFoundException
+	public void saveUsers(User[] users) throws FileNotFoundException
 	{
 		PrintWriter output = new PrintWriter(userFile);
 		for (int i = 0; i < users.length; i++)
 		{
 			if (users[i] != null)
 			{
-				output.println(users[i].getUsername() + "," + users[i].getPassword());
+				output.println(users[i].getName() + "," + users[i].getUsername() + "," + users[i].getPassword() + "," + users[i].getAddress() + "," + users[i].getContact());
 			}
-		}
-		for (int i = 0; i < playerList.size(); i++)
-		{
-			output.println(playerList.get(i).getUsername() + "," + playerList.get(i).getPassword());
-
 		}
 
 		output.close();
 	}
+
 
 }

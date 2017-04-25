@@ -1,13 +1,16 @@
+package owner;
+import user.User;
 
 public class Owner extends User {
 
     private String business;
     private String name;
     private String address;
-    private int phone;
+    private String phone;
     
-    public Owner(String username, String pass, String bus, String name, String address, int num){
-    	super(username, pass);
+    /* Constructor to set up the owner */
+    public Owner(String username, String pass, String bus, String name, String address, String num){
+    	super(name, username, pass, address, num);
     	this.setUsername(username);
         this.business = bus;
         this.name = name;
@@ -24,7 +27,7 @@ public class Owner extends User {
     public String getAddress(){
         return address;
     }
-    public int getNum(){
+    public String getNum(){
         return phone;
     }
     
