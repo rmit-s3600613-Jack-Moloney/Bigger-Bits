@@ -85,6 +85,8 @@ public class BusinessOwnerMenu
 				break;
 			case 6:
 				System.out.println("Edit Activities!");
+				EditActivities editAct = new EditActivities();
+				editAct.UpdateActivities();
 				break;
 			default:
 				System.out.println("Invalid input, please try again.");
