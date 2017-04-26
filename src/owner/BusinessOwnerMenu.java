@@ -41,7 +41,8 @@ public class BusinessOwnerMenu
 			System.out.println("3. Summary of Bookings");
 			System.out.println("4. New Booking");
 			System.out.println("5. Workers Shifts");
-			System.out.println("6. Logout");
+			System.out.println("6. Add / Edit Activites");
+			System.out.println("7. Logout");
 			System.out.println("--------------------------------");
 			System.out.println("Enter an option: ");
 
@@ -78,9 +79,12 @@ public class BusinessOwnerMenu
 			case 5:
 				displayShifts();
 				break;
-			case 6:
+			case 7:
 				System.out.println("Returning to main menu");
 				loop = false;
+				break;
+			case 6:
+				System.out.println("Edit Activities!");
 				break;
 			default:
 				System.out.println("Invalid input, please try again.");
