@@ -1,7 +1,10 @@
+package user;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.text.SimpleDateFormat;
 import java.util.Scanner;
+
+import booking.Shift;
 
 public class Employee {
 	private String name;
@@ -19,6 +22,11 @@ public class Employee {
 	
 	public String getEmail(){
 		return Email;
+	}
+	
+	public Shift[] getRoster()
+	{
+		return roster;
 	}
 	
 	public void loadHours() throws FileNotFoundException{
@@ -70,7 +78,8 @@ public class Employee {
 		for (int i = 0; i < roster.length; i++){
 			newRoster[i] = roster[i];
 		}
-		newRoster[roster.length - 1] = newShift;
+		newRoster[roster.length] = newShift;
+		roster = newRoster;
 		return true;
 	}
 

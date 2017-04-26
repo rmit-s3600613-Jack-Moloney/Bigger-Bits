@@ -1,12 +1,18 @@
+package customer;
 import java.util.Scanner;
 
-//MItchell did this
+import owner.Owner;
+import user.User;
+import user.UserIO;
+
 import java.util.Scanner;
 import java.io.FileNotFoundException;
 
 
 public class Login {
-	User[] users;
+	/* An array of users is stored, to hold all current users of the system */
+	public User[] users;
+	/* The system only has one owner */
 	Owner owner;
 	UserIO IO;
 	User user;
@@ -26,18 +32,21 @@ public class Login {
 		boolean loop = true;
 		boolean isOwner;
 		
+		/* Asks for username until correct one is entered on user cancels */
 		while (loop == true){
 			System.out.println("Please Enter your Username");
-			
 			username = input.nextLine();
+			/* Checks if the username belongs to the owner */
 			if(searchOwner(username, owner)){
 				isOwner = true;
 				loop = false;
 			}
+			/* Searches the Users to see if there is a match */
 			else if(searchUser(username)){
 				isOwner = false;
 				loop = false;
 			}
+			/* Checks to see if the user wants to cancel */
 			else if(username.toUpperCase().equals("C")){
 				System.out.println("Returning to menu");
 				return null;
@@ -53,9 +62,12 @@ public class Login {
 		{
 			valid = -1;
 			password = input.nextLine();
+			
+			/* Searches to see if the password is correct, returns a value to be assigned */
 			valid = searchPassword(username, password, owner);
+			
 			if (valid == 0){
-				user = new User(username, password);
+				user = users[userLocation];
 			}
 			else if (valid == 1){
 				user = null;
@@ -113,6 +125,7 @@ public class Login {
 		return exist;
 	}
 	
+	/* Searches the users and owners and checks to see if there is a match */
 	public int searchPassword(String username, String password, Owner owner){
 		
 		if (password.equals(users[userLocation].getPassword()))
