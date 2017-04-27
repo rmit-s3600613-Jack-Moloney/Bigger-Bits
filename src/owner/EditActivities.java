@@ -3,6 +3,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.Scanner;
 import java.util.logging.Level;
 
@@ -10,7 +11,7 @@ public class EditActivities {
 	Activity[] activities;
 	File activityFile = new File("activities.txt");
 	
-	public boolean UpdateActivities() throws FileNotFoundException{
+	public boolean UpdateActivities() throws IOException{
 		boolean valid = false;
 		System.out.println("1. Add New Activity");
 		System.out.println("2. Edit Activities");
@@ -132,17 +133,17 @@ public class EditActivities {
 		return true;
 	}
 	
-	public boolean editActivity(){
-		Activity selectedActivity;
-		int optionNumber;
+	public boolean editActivity() throws IOException{
+		Activity selectedActivity = null;
+		int optionNumber = 0;
 		boolean valid = false;
+		String option;
 		Scanner input = new Scanner(System.in);
 		displayActivities();
-		
-		
+				
 		while(!valid){
 			System.out.println("Select The Activity You Would Like To Edit:");
-			String option = input.nextLine();
+			option = input.nextLine();
 			
 			try
 			{
@@ -161,10 +162,91 @@ public class EditActivities {
 			}
 			else{
 				selectedActivity = activities[optionNumber - 1];
-				System.out.println("You have selected " + selectedActivity.getName());
 				valid = true;
 			}
 		}
+		
+		
+		valid = false;
+		while(!valid){
+			String editOption;
+			int editNumber;
+			
+			selectedActivity = activities[optionNumber - 1];
+			System.out.println("------------------------------------");
+			System.out.print("1. Name: ");
+			System.out.println(selectedActivity.getName());
+			System.out.print("2. Description: ");
+			System.out.println(selectedActivity.getDesc());
+			System.out.print("3. Length: ");
+			System.out.print(selectedActivity.getLength());
+			System.out.println(" Minutes");
+			System.out.println("4. Exit");
+			System.out.println("------------------------------------");
+			
+			System.out.println("Select the attribute you would like to edit (1-3)");
+			editOption = input.nextLine();
+			try
+			{
+				editNumber = Integer.parseInt(editOption);
+			}
+			catch(NumberFormatException e)
+			{
+				editNumber = 0;
+			}
+			
+			switch(editNumber){
+			case 1:
+				String newName;
+				System.out.println("Current Name: " + selectedActivity.getName());
+				System.out.println("Please enter a new name: ");
+				newName = input.nextLine();
+				activities[optionNumber - 1].setName(newName);
+				saveActivity();
+				break;
+			case 2:
+				String newDesc;
+				System.out.println("Current Description: " + selectedActivity.getDesc());
+				System.out.println("Please enter a new description: ");
+				newDesc = input.nextLine();
+				activities[optionNumber - 1].setDesc(newDesc);
+				saveActivity();
+				break;
+			case 3:
+				String newLength;
+				System.out.println("Current Length: " + selectedActivity.getLength());
+				System.out.println("Please enter a new length(Multiples of 30 only): ");
+				newLength = input.nextLine();
+				activities[optionNumber - 1].setLength(Integer.parseInt(newLength));
+				saveActivity();
+				break;
+			case 4:
+				valid = true;
+				break;
+			default:
+				System.out.println("Invalid Input");
+			}
+		}
+	
+		return true;
+	}
+	
+	public boolean saveActivity() throws IOException{
+		
+		PrintWriter fw = new PrintWriter(activityFile);
+		for (int i = 0; i < activities.length; i++){
+			fw.write(activities[i].getName());
+			fw.write("_");
+			fw.write(activities[i].getDesc());
+			fw.write("_");
+			fw.print(activities[i].getLength());
+			System.out.println("Writing!");
+			System.out.println(activities[i].getLength());
+			/* Important to add a new line character at the end */
+			fw.write('\n');
+			System.out.println(i);
+		}
+		fw.close();
 		return true;
 	}
 }

@@ -1,2 +1,3 @@
-Activity1_This is the first activity_30
+Activity1_This is the first activity_90
 Activity2_This is the second activity_30
+Activity3_This is the third activity_60

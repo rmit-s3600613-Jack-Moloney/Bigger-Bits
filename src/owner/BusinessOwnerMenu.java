@@ -20,7 +20,7 @@ public class BusinessOwnerMenu
 	File bookingsFile = new File("bookings.txt");
 
 
-	public boolean businessOwnerMenu() throws FileNotFoundException
+	public boolean businessOwnerMenu() throws IOException
 	{
 		employees = loadEmployees();
 		bookings = loadBookings();

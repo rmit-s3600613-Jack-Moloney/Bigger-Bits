@@ -1,5 +1,6 @@
 package main;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.Scanner;
 import java.util.logging.*;
 
@@ -23,7 +24,7 @@ public class Menu {
 	CustomerMenu custMenu = new CustomerMenu();
 	BusinessOwnerMenu ownerMenu = new BusinessOwnerMenu();
 
-	public void menu() throws FileNotFoundException
+	public void menu() throws IOException
 	{
 
 
