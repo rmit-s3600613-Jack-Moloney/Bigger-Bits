@@ -5,6 +5,10 @@ public class Activity {
 	private String description;
 	private int length;
 	
+	public Activity(String name){
+		this.name = name;
+	}
+	
 	public Activity(String name, String desc, int length){
 		setName(name);
 		setDesc(desc);

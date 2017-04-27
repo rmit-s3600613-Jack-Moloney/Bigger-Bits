@@ -21,7 +21,6 @@ public class Menu {
 	User[] users;
 	UserIO IO = new UserIO();
 	CustomerRegister register = new CustomerRegister();
-	CustomerMenu custMenu = new CustomerMenu();
 	BusinessOwnerMenu ownerMenu = new BusinessOwnerMenu();
 
 	public void menu() throws IOException
@@ -82,6 +81,7 @@ public class Menu {
 				}
 				/* If the user was a customer, send to the customer menu */
 				else{
+					CustomerMenu custMenu = new CustomerMenu(user);
 					custMenu.customerMenu();
 				}
 				break;

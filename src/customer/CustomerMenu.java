@@ -4,13 +4,19 @@ import java.io.FileNotFoundException;
 import java.util.Scanner;
 
 import booking.Booking;
+import user.User;
 
 public class CustomerMenu 
 {
+	User currentUser;
 	Booking[] bookings;
 	File bookingsFile = new File("bookings.txt");
 	public String[] times = new String[16];
-
+	
+	public CustomerMenu(User user){
+		currentUser = user;
+	}
+	
 	public boolean customerMenu() throws FileNotFoundException
 	{
 		bookings = loadBookings();
@@ -28,8 +34,9 @@ public class CustomerMenu
 		{
 
 			System.out.println("Please select one of the following options:");
-			System.out.println("1. Display Booking Times");
-			System.out.println("2. Return to Menu");
+			System.out.println("1. Display Available Times");
+			System.out.println("2. Make Booking!");
+			System.out.println("3. Return to Menu");
 			System.out.println("--------------------------------");
 			System.out.println("Enter an option: ");
 			
@@ -53,6 +60,11 @@ public class CustomerMenu
 				displayTimes();
 				break;
 			case 2:
+				System.out.println("Make Booking!");
+				CustomerBooking book = new CustomerBooking(currentUser);
+				book.makeBooking();
+				break;
+			case 3:
 				loop = false;
 				break;
 			default:
@@ -165,4 +177,5 @@ public class CustomerMenu
 		}
 		return true;
 	}
+	
 }

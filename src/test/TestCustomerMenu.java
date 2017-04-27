@@ -7,10 +7,11 @@ import org.junit.Before;
 import org.junit.Test;
 
 import customer.CustomerMenu;
+import user.User;
 
 public class TestCustomerMenu {
-	
-	CustomerMenu menu = new CustomerMenu();
+	User user = new User("name", "username", "pass1", "12 address", "0123456789");
+	CustomerMenu menu = new CustomerMenu(user);
 	
 	@Before
 	public void setup(){
