@@ -3,6 +3,8 @@ package customer;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
+import java.util.ArrayList;
+import java.util.Arrays;
 
 import booking.Booking;
 import owner.Activity;
@@ -12,7 +14,7 @@ import util.Util;
 
 public class CustomerBooking {
 	User user;
-	Util util;
+	Util util = new Util();
 	Activity[] activities;
 	Employee[] employees;
 	Booking[] bookings;
@@ -25,12 +27,64 @@ public class CustomerBooking {
 		activities = util.loadActivity();
 		employees = util.loadEmployees();
 		bookings = util.loadBookings();
+		Scanner scanner = new Scanner(System.in);
+		
+		int activityNum;
+		String activitySelect;
+		Activity selectedActivity;
+		ArrayList<Activity> selectedActivities = new ArrayList<Activity>();
+		ArrayList<Activity> allActivities = new ArrayList<Activity>(Arrays.asList(activities));
+		
+		int employeeNum;
+		String employeeSelect;
+		ArrayList<Employee> suitableEmp = new ArrayList<Employee>();
 		
 		System.out.println("Please select the services you would like performed: ");
-		displayActivities();
-		
+		boolean loop = true;
+		while(loop){
+			displayActivities(allActivities);
+			activitySelect = scanner.nextLine();
+			activityNum = Integer.parseInt(activitySelect);
+			if(activityNum == allActivities.size() + 1){
+				loop = false;
+				break;
+			}
+			selectedActivity = allActivities.get(activityNum - 1);
+			selectedActivities.add(selectedActivity);
+			
+			for(int i = 0; i < allActivities.size(); i++){
+				if(allActivities.get(i) == selectedActivity){
+					allActivities.remove(i);
+				}
+			}
+			if(allActivities.size() < 1){
+				loop = false;
+				break;
+			}		
+		}
+
 		System.out.println("Please select the employee you would like to use: ");
 		//Only display Employees that can perform the desired activity
+		boolean found = false;
+		for(int i = 0; i < employees.length; i++){
+			employees[i].loadEmployeeActivities();
+			//Cycle through all selected activities to check that employee can perform all tasks
+			for(int j = 0; j < selectedActivities.size(); j++){
+				
+				for(int k = 0; k < employees[i].getActivities().length; k++){
+					if(selectedActivities.get(j) == employees[i].getActivities()[k]){
+						found = true;
+						break;
+					}
+					else{
+						found = false;
+					}
+				}
+			}
+			if(found == true){
+				suitableEmp.add(employees[i]);
+			}
+		}
 		displayEmployees();
 		
 		System.out.println("Please select your preferred date: ");
@@ -45,11 +99,12 @@ public class CustomerBooking {
 		return true;
 	}
 	
-	public boolean displayActivities(){
-		for(int i = 0; i < activities.length; i++){
+	public boolean displayActivities(ArrayList<Activity> currentActs){
+		for(int i = 0; i < currentActs.size(); i++){
 			System.out.print(i + 1 + ".");
-			System.out.println(activities[i].getName());
+			System.out.println(currentActs.get(i).getName());
 		}
+		System.out.println(currentActs.size() + 1 + ".Continue");
 		return true;
 	}
 	
@@ -67,6 +122,12 @@ public class CustomerBooking {
 	}
 	
 	public boolean displayTimes(){
+		
+		return true;
+	}
+	
+	public boolean saveNewBooking(){
+		File bookingFile = new File("bookings.txt");
 		
 		return true;
 	}

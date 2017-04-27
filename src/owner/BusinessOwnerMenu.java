@@ -10,6 +10,7 @@ import java.util.Scanner;
 import booking.Booking;
 import booking.Shift;
 import user.Employee;
+import util.Util;
 
 public class BusinessOwnerMenu 
 {
@@ -18,12 +19,13 @@ public class BusinessOwnerMenu
 	Booking[] bookings;
 	File employeeFile = new File("employees.txt");
 	File bookingsFile = new File("bookings.txt");
+	Util util = new Util();
 
 
 	public boolean businessOwnerMenu() throws IOException
 	{
-		employees = loadEmployees();
-		bookings = loadBookings();
+		employees = util.loadEmployees();
+		bookings = util.loadBookings();
 
 		Scanner input = new Scanner(System.in);
 
@@ -65,7 +67,7 @@ public class BusinessOwnerMenu
 			case 1:
 				addingEmployee.addingEmployee(employees);
 				/* Reload employees from file so new employee is in system*/
-				employees = loadEmployees();
+				employees = util.loadEmployees();
 				break;
 			case 2:
 				addHours();
@@ -200,60 +202,6 @@ public class BusinessOwnerMenu
 
 		return false;
 
-	}
-	
-	/* Loads every employee in the file into an array in the system */
-	public Employee[] loadEmployees() throws FileNotFoundException{
-		String[] tokens = new String[2];
-		int count = 0;
-		String empName;
-		String empEmail;
-
-		Scanner test = new Scanner(employeeFile);
-		Scanner scanner = new Scanner(employeeFile);
-
-		while (test.hasNextLine())
-		{
-			test.nextLine();
-			count++;
-		}
-		test.close();
-
-		Employee[] employees = new Employee[count];
-
-		for (int i = 0; i < count; i++)
-		{
-			tokens = scanner.nextLine().split(",");
-			empName = tokens[0];
-			empEmail = tokens[1];
-			employees[i] = new Employee(empName, empEmail);
-		}
-		scanner.close();
-
-		return employees;
-	}
-	
-	/* Loads every booking in the file into the system */
-	public Booking[] loadBookings() throws FileNotFoundException{
-		int count = 0;
-		
-		Scanner test = new Scanner(bookingsFile);
-		Scanner scanner = new Scanner(bookingsFile);
-		
-		/* Checks the number of lines in the file so the array size can be defined */
-		while (test.hasNextLine())
-		{
-			test.nextLine();
-			count++;
-		}
-		test.close();
-		
-		Booking[] bookings = new Booking[count];
-		
-		for (int i = 0; i < count; i++){
-			bookings[i] = new Booking(scanner.nextLine());
-		}
-		return bookings;
 	}
 	
 	/*Check that input is of format dd.MM*/

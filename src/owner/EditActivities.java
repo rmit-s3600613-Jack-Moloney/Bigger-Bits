@@ -7,9 +7,12 @@ import java.io.PrintWriter;
 import java.util.Scanner;
 import java.util.logging.Level;
 
+import util.Util;
+
 public class EditActivities {
 	Activity[] activities;
 	File activityFile = new File("activities.txt");
+	Util util = new Util();
 	
 	public boolean UpdateActivities() throws IOException{
 		boolean valid = false;
@@ -19,7 +22,7 @@ public class EditActivities {
 		
 		int optionNumber = -1;
 		while (!valid){
-			activities = loadActivities();
+			activities = util.loadActivity();
 			Scanner input = new Scanner(System.in);
 			System.out.println("Select An Option:");
 			String option = input.nextLine();
@@ -53,40 +56,6 @@ public class EditActivities {
 		
 		return true;
 	}
-	
-	public Activity[] loadActivities() throws FileNotFoundException{
-		String[] tokens = new String[2];
-		int count = 0;
-		String actName;
-		String actDesc;
-		String actLength;
-		int length;
-
-		Scanner test = new Scanner(activityFile);
-		Scanner scanner = new Scanner(activityFile);
-
-		while (test.hasNextLine())
-		{
-			test.nextLine();
-			count++;
-		}
-		test.close();
-
-		Activity[] activities = new Activity[count];
-
-		for (int i = 0; i < count; i++)
-		{
-			tokens = scanner.nextLine().split("_");
-			actName = tokens[0];
-			actDesc = tokens[1];
-			actLength = tokens[2];
-			length = Integer.parseInt(actLength);
-			activities[i] = new Activity(actName, actDesc, length);
-		}
-		scanner.close();
-
-		return activities;
-	 }
 	
 	public void displayActivities(){
 		for(int i = 0; i < activities.length; i++){

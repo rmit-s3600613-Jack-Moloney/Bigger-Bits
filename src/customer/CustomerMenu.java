@@ -5,13 +5,16 @@ import java.util.Scanner;
 
 import booking.Booking;
 import user.User;
+import util.Util;
 
 public class CustomerMenu 
 {
 	User currentUser;
 	Booking[] bookings;
 	File bookingsFile = new File("bookings.txt");
-	public String[] times = new String[16];
+	String[] times = new String[16];
+	Util util = new Util();
+	
 	
 	public CustomerMenu(User user){
 		currentUser = user;
@@ -19,7 +22,7 @@ public class CustomerMenu
 	
 	public boolean customerMenu() throws FileNotFoundException
 	{
-		bookings = loadBookings();
+		bookings = util.loadBookings();
 
 		Scanner input = new Scanner(System.in);
 
@@ -132,29 +135,6 @@ public class CustomerMenu
 			}
 		}
 		System.out.println("-------------------------");
-	}
-	
-	/* Loads all bookings in the file into an array */
-	public Booking[] loadBookings() throws FileNotFoundException{
-		int count = 0;
-
-		Scanner test = new Scanner(bookingsFile);
-		Scanner scanner = new Scanner(bookingsFile);
-		
-		/* Checks how many lines are in the file so the array length can be defined */
-		while (test.hasNextLine())
-		{
-			test.nextLine();
-			count++;
-		}
-		test.close();
-
-		Booking[] bookings = new Booking[count];
-
-		for (int i = 0; i < count; i++){
-			bookings[i] = new Booking(scanner.nextLine());
-		}
-		return bookings;
 	}
 	
 	/* Test the date input by the user to ensure it is correct*/
