@@ -2,11 +2,13 @@ package customer;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.text.SimpleDateFormat;
 import java.util.Scanner;
 import java.util.ArrayList;
 import java.util.Arrays;
 
 import booking.Booking;
+import booking.Shift;
 import owner.Activity;
 import user.Employee;
 import user.User;
@@ -38,6 +40,11 @@ public class CustomerBooking {
 		int employeeNum;
 		String employeeSelect;
 		ArrayList<Employee> suitableEmp = new ArrayList<Employee>();
+		Employee selectedEmployee;
+		
+		int dateNum;
+		String dateSelect;
+		Shift selectedDate;
 		
 		System.out.println("Please select the services you would like performed: ");
 		boolean loop = true;
@@ -68,11 +75,12 @@ public class CustomerBooking {
 		boolean found = false;
 		for(int i = 0; i < employees.length; i++){
 			employees[i].loadEmployeeActivities();
-			//Cycle through all selected activities to check that employee can perform all tasks
+
 			for(int j = 0; j < selectedActivities.size(); j++){
 				
 				for(int k = 0; k < employees[i].getActivities().length; k++){
-					if(selectedActivities.get(j) == employees[i].getActivities()[k]){
+					
+					if(selectedActivities.get(j).getName().equals(employees[i].getActivities()[k].getName())){
 						found = true;
 						break;
 					}
@@ -85,16 +93,23 @@ public class CustomerBooking {
 				suitableEmp.add(employees[i]);
 			}
 		}
-		displayEmployees();
+		
+		displayEmployees(suitableEmp);
+		employeeSelect = scanner.nextLine();
+		employeeNum = Integer.parseInt(employeeSelect);
+		selectedEmployee = suitableEmp.get(employeeNum - 1);
 		
 		System.out.println("Please select your preferred date: ");
 		//Only display dates that selected employee is working
-		displayDates();
+		displayDates(selectedEmployee);
+		dateSelect = scanner.nextLine();
+		dateNum = Integer.parseInt(dateSelect);
+		selectedDate = selectedEmployee.getRoster()[dateNum - 1];
 		
 		System.out.println("Please select your preferred time: ");
 		//Only display times that selected employee is working
 		//Check if selected activities fit for selected time
-		displayTimes();
+		displayTimes(selectedDate);
 		
 		return true;
 	}
@@ -108,20 +123,28 @@ public class CustomerBooking {
 		return true;
 	}
 	
-	public boolean displayEmployees(){
-		for (int i = 0; i < employees.length; i++){
+	public boolean displayEmployees(ArrayList<Employee> employees){
+		for (int i = 0; i < employees.size(); i++){
 			System.out.print(i + 1 + ". ");
-			System.out.println(employees[i].getName());
+			System.out.println(employees.get(i).getName());
 		}
 		return true;
 	}
 	
-	public boolean displayDates(){
+	public boolean displayDates(Employee employee) throws FileNotFoundException{
+		SimpleDateFormat sdf = new SimpleDateFormat("E MM/dd HH:mm");
+		SimpleDateFormat endsdf = new SimpleDateFormat(" - HH:mm ");
 		
+		employee.loadHours();
+		for (int i = 0; i < employee.getRoster().length; i++){
+			System.out.print(i + 1 + ".");
+			System.out.print(sdf.format(employee.getRoster()[i].getStart()));
+			System.out.println(endsdf.format(employee.getRoster()[i].getEnd()));	
+		}
 		return true;
 	}
 	
-	public boolean displayTimes(){
+	public boolean displayTimes(Shift shift){
 		
 		return true;
 	}
