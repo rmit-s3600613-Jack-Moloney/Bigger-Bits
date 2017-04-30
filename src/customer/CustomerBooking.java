@@ -2,6 +2,7 @@ package customer;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
 import java.util.Scanner;
 import java.util.ArrayList;
@@ -20,6 +21,7 @@ public class CustomerBooking {
 	Activity[] activities;
 	Employee[] employees;
 	Booking[] bookings;
+	Booking newBooking;
 	
 	public CustomerBooking(User currentUser){
 		user = currentUser;
@@ -45,6 +47,8 @@ public class CustomerBooking {
 		int dateNum;
 		String dateSelect;
 		Shift selectedDate;
+		
+		String timeSelect;
 		
 		System.out.println("Please select the services you would like performed: ");
 		boolean loop = true;
@@ -99,18 +103,22 @@ public class CustomerBooking {
 		employeeNum = Integer.parseInt(employeeSelect);
 		selectedEmployee = suitableEmp.get(employeeNum - 1);
 		
-		System.out.println("Please select your preferred date: ");
+		System.out.println("Please select your preferred date(Format: DD/M): ");
 		//Only display dates that selected employee is working
 		displayDates(selectedEmployee);
 		dateSelect = scanner.nextLine();
-		dateNum = Integer.parseInt(dateSelect);
-		selectedDate = selectedEmployee.getRoster()[dateNum - 1];
+		//dateNum = Integer.parseInt(dateSelect);
+		//selectedDate = selectedEmployee.getRoster()[dateNum - 1];
 		
-		System.out.println("Please select your preferred time: ");
+		System.out.println("Please select your preferred time(Format: HH:MM): ");
 		//Only display times that selected employee is working
 		//Check if selected activities fit for selected time
-		displayTimes(selectedDate);
+		//displayTimes(selectedDate);
+		timeSelect = scanner.nextLine();
 		
+		Booking booking = new Booking(user.getName(), dateSelect, timeSelect, selectedEmployee,selectedActivities);
+		newBooking = booking;
+		saveNewBooking();
 		return true;
 	}
 	
@@ -149,9 +157,64 @@ public class CustomerBooking {
 		return true;
 	}
 	
-	public boolean saveNewBooking(){
+	public boolean saveNewBooking() throws FileNotFoundException{
 		File bookingFile = new File("bookings.txt");
+		PrintWriter fw = new PrintWriter(bookingFile);
 		
+		for(int count = 0; count < bookings.length; count++){
+			fw.print(bookings[count].getName());
+			fw.print(".");
+			fw.print(bookings[count].getStart().getDate());
+			fw.print(".");
+			fw.print(bookings[count].getStart().getMonth());
+			fw.print(".");
+			fw.print(bookings[count].getStart().getHours());
+			fw.print(":");
+			fw.print(bookings[count].getStart().getMinutes());
+			fw.print(".");
+			fw.print(bookings[count].getEnd().getHours());
+			fw.print(":");
+			fw.print(bookings[count].getEnd().getMinutes());
+			fw.print(".");
+			fw.print(bookings[count].getEmployee());
+			fw.print(".");
+			for (int i = 0; i < bookings[count].getActivities().length; i++){
+				fw.print(bookings[count].getActivities()[i]);
+				if (i != bookings[count].getActivities().length - 1){
+					fw.print(".");
+				}
+			}
+			System.out.println("Writing!");
+			/* Important to add a new line character at the end */
+			fw.write('\n');
+		}
+		
+		fw.print(newBooking.getName());
+		fw.print(".");
+		fw.print(newBooking.getStart().getDate());
+		fw.print(".");
+		fw.print(newBooking.getStart().getMonth());
+		fw.print(".");
+		fw.print(newBooking.getStart().getHours());
+		fw.print(":");
+		fw.print(newBooking.getStart().getMinutes());
+		fw.print(".");
+		fw.print(newBooking.getEnd().getHours());
+		fw.print(":");
+		fw.print(newBooking.getEnd().getMinutes());
+		fw.print(".");
+		fw.print(newBooking.getEmployee());
+		fw.print(".");
+		for (int i = 0; i < newBooking.getActivities().length; i++){
+			fw.print(newBooking.getActivities()[i]);
+			if (i != newBooking.getActivities().length - 1){
+				fw.print(".");
+			}
+		}
+		System.out.println("Writing!");
+		/* Important to add a new line character at the end */
+		fw.write('\n');
+		fw.close();
 		return true;
 	}
 }
