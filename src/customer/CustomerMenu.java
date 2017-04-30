@@ -4,16 +4,25 @@ import java.io.FileNotFoundException;
 import java.util.Scanner;
 
 import booking.Booking;
+import user.User;
+import util.Util;
 
 public class CustomerMenu 
 {
+	User currentUser;
 	Booking[] bookings;
 	File bookingsFile = new File("bookings.txt");
-	public String[] times = new String[16];
-
+	String[] times = new String[16];
+	Util util = new Util();
+	
+	
+	public CustomerMenu(User user){
+		currentUser = user;
+	}
+	
 	public boolean customerMenu() throws FileNotFoundException
 	{
-		bookings = loadBookings();
+		bookings = util.loadBookings();
 
 		Scanner input = new Scanner(System.in);
 
@@ -28,8 +37,9 @@ public class CustomerMenu
 		{
 
 			System.out.println("Please select one of the following options:");
-			System.out.println("1. Display Booking Times");
-			System.out.println("2. Return to Menu");
+			System.out.println("1. Display Available Times");
+			System.out.println("2. Make Booking!");
+			System.out.println("3. Return to Menu");
 			System.out.println("--------------------------------");
 			System.out.println("Enter an option: ");
 			
@@ -53,6 +63,11 @@ public class CustomerMenu
 				displayTimes();
 				break;
 			case 2:
+				System.out.println("Make Booking!");
+				CustomerBooking book = new CustomerBooking(currentUser);
+				book.makeBooking();
+				break;
+			case 3:
 				loop = false;
 				break;
 			default:
@@ -122,29 +137,6 @@ public class CustomerMenu
 		System.out.println("-------------------------");
 	}
 	
-	/* Loads all bookings in the file into an array */
-	public Booking[] loadBookings() throws FileNotFoundException{
-		int count = 0;
-
-		Scanner test = new Scanner(bookingsFile);
-		Scanner scanner = new Scanner(bookingsFile);
-		
-		/* Checks how many lines are in the file so the array length can be defined */
-		while (test.hasNextLine())
-		{
-			test.nextLine();
-			count++;
-		}
-		test.close();
-
-		Booking[] bookings = new Booking[count];
-
-		for (int i = 0; i < count; i++){
-			bookings[i] = new Booking(scanner.nextLine());
-		}
-		return bookings;
-	}
-	
 	/* Test the date input by the user to ensure it is correct*/
 	public boolean testDateInput(String date){
 		/* Checks that all characters are digits */
@@ -165,4 +157,5 @@ public class CustomerMenu
 		}
 		return true;
 	}
+	
 }

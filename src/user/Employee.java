@@ -5,11 +5,14 @@ import java.text.SimpleDateFormat;
 import java.util.Scanner;
 
 import booking.Shift;
+import owner.Activity;
+import util.Util;
 
 public class Employee {
 	private String name;
 	private String Email;
 	private Shift[] roster;
+	private Activity[] activities;
 	
 	public Employee(String Name, String address){
 		name = Name;
@@ -27,6 +30,10 @@ public class Employee {
 	public Shift[] getRoster()
 	{
 		return roster;
+	}
+	
+	public Activity[] getActivities(){
+		return activities;
 	}
 	
 	public void loadHours() throws FileNotFoundException{
@@ -82,5 +89,48 @@ public class Employee {
 		roster = newRoster;
 		return true;
 	}
+	
+	public boolean loadEmployeeActivities() throws FileNotFoundException{
+		File activityFile = new File("employeeSkills.txt");
+		Util util = new Util();
+		Activity[] allActivities;
+		int count = 0;
+		Scanner test = new Scanner(activityFile);
+		Scanner scanner = new Scanner(activityFile);
 
+		while (test.hasNextLine())
+		{
+			test.nextLine();
+			count++;
+		}
+		test.close();
+		
+		for (int i = 0; i < count; i++){
+			String[] searchString = scanner.nextLine().split(",");
+			
+			if (searchString[0].equals(name)){
+				Activity[] skills = new Activity[searchString.length - 1];
+				for (int x = 1; x < searchString.length; x++){
+					//System.out.println(searchString[x]);
+					skills[x-1] = new Activity(searchString[x]);					
+				}
+				activities = skills;
+			}
+			else{
+				continue;
+			}
+	    }
+		
+		//Loop through both activity arrays to set activity info correctly
+		allActivities = util.loadActivity();
+		for (int i = 0; i < activities.length; i++){
+			for (int j = 0; j < allActivities.length; j++){
+				if (name.equals(allActivities[j].getName())){
+					activities[i].setDesc(allActivities[j].getDesc());
+					activities[i].setLength(allActivities[j].getLength());
+				}
+			}
+		}
+		return false;
+	}
 }
