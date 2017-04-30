@@ -20,6 +20,7 @@ public class BusinessOwnerMenu
 	File employeeFile = new File("employees.txt");
 	File bookingsFile = new File("bookings.txt");
 	Util util = new Util();
+	OwnerBooking makeBooking = new OwnerBooking();
 
 
 	public boolean businessOwnerMenu() throws IOException
@@ -76,6 +77,7 @@ public class BusinessOwnerMenu
 				bookingSummaries();
 				break;
 			case 4:
+				makeBooking.makeBooking();
 				System.out.println("This is where you will do new booking things.");
 				break;
 			case 5:
